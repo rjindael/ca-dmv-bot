@@ -19,6 +19,11 @@ The data ca-dmv uses is sourced from [@veltman/ca-license-plates](https://github
 - Does not include review reason codes for brevity purposes
 - Made on a boring Saturday, so there exists only ephemeral logging and barely any error checking exists
 
+## Credits
+
+Special thanks to Noah Veltman ([@veltman](https://github.com/veltman)) for the application dataset and to Kay ([@zyrnwtf](https://twitter.com/zyrnwtf)) for teaching me the ins and outs of the Twitter API.
+
+
 ## License
 
 ca-dmv is licensed under the MIT license. [A copy of it has been included](https://github.com/rjindael/ca-dmv/blob/trunk/LICENSE).

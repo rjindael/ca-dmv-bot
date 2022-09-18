@@ -51,5 +51,4 @@ async function post() {
     dmv.remove(tweet.plate)
 }
 
-setTimeout(post, 2000)
-//setInterval(post, process.env.TIMEOUT * 1000)
+setInterval(post, process.env.TIMEOUT * 1000)

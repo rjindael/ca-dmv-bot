@@ -1,7 +1,7 @@
 {
   "name": "ca-dmv",
   "version": "1.0.0",
-  "description": "Bot that randomly posts 23,463 personalized license plate applications the California DMV received from 2015-2016 to Twitter.",
+  "description": "Bot that randomly posts 23,463 personalized license plate applications the California DMV received from 2015-2016 to Twitter every so often.",
   "main": "index.js",
   "scripts": {
     "start": "node --no-warnings index.js",
