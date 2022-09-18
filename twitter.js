@@ -41,7 +41,6 @@ async function post(tweet) {
                     let parameters = { status: tweet.text, media_ids: [ meta.media_id ] }
 
                     client.post("statuses/update", parameters, (_, data, __) => {
-                        console.log(data)
                         resolve(`https://twitter.com/${data.user.screen_name}/status/${data.id_str}`)
                     })
                 }

@@ -17,7 +17,7 @@ The data ca-dmv uses is sourced from [@veltman/ca-license-plates](https://github
 - Posts plates to Twitter every hour or so; this is contingent on approval timeline
 - Uses GraphicsMagick (fork of ImageMagick) to generate license plate images
 - Does not include review reason codes for brevity purposes
-- Made on a boring Saturday, so there exists only ephemeral logging and barely any error checking exists
+- Made on a slow weekend so there's only ephemeral logging and little error checking
 
 ## Credits
 
