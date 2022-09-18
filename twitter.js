@@ -3,7 +3,7 @@ const twit = require("twit")
 
 var client
 
-function generate(plate) {
+function format(plate) {
     let tweet = `Customer: ${plate.customer}\nDMV: ${plate.dmv}\n\nVerdict: ${plate.status ? "ACCEPTED": "DENIED"}`
     let trimmed = false
 
@@ -56,4 +56,4 @@ function initialize(authentication) {
     })
 }
 
-module.exports = { generate, post, initialize }
+module.exports = { format, post, initialize }

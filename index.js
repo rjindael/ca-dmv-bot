@@ -32,9 +32,10 @@ async function post() {
     let valid = false
 
     while (!valid) {
-        tweet = twitter.generate(await dmv.generate())
+        tweet = twitter.format(await dmv.generate())
 
         if (tweet === false) {
+            dmv.remove(tweet.plate)
             continue
         }
 
