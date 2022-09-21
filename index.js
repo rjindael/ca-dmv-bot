@@ -52,4 +52,11 @@ async function post() {
     dmv.remove(tweet.plate)
 }
 
-setInterval(post, process.env.TIMEOUT * 1000)
+var working = false
+
+setInterval(() => {
+    if (!working) {
+        working = true
+        await post()
+    }
+}, process.env.TIMEOUT * 1000)
