@@ -58,5 +58,6 @@ setInterval(async () => {
     if (!working) {
         working = true
         await post()
+        working = false
     }
 }, process.env.TIMEOUT * 1000)
