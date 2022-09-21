@@ -54,7 +54,7 @@ async function post() {
 
 var working = false
 
-setInterval(() => {
+setInterval(async () => {
     if (!working) {
         working = true
         await post()
