@@ -26,4 +26,4 @@ Special thanks to Noah Veltman ([@veltman](https://github.com/veltman)) for the 
 
 ## License
 
-ca-dmv is licensed under the MIT license. [A copy of it has been included](https://github.com/rjindael/ca-dmv/blob/trunk/LICENSE).
+ca-dmv is licensed under the MIT license. A copy of it [has been included](https://github.com/rjindael/ca-dmv/blob/trunk/LICENSE) with ca-dmv.
