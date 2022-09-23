@@ -22,8 +22,7 @@ The data ca-dmv uses is sourced from [@veltman/ca-license-plates](https://github
 
 ## Credits
 
-Special thanks to Noah Veltman ([@veltman](https://github.com/veltman)) for the application dataset and to Kay ([@zyrnwtf](https://twitter.com/zyrnwtf)) for teaching me the ins and outs of the Twitter API.
-
+Thanks to Noah Veltman ([@veltman](https://github.com/veltman)) for the application dataset and to Kay ([@zyrnwtf](https://twitter.com/zyrnwtf)) for teaching me the ins and outs of the Twitter API.
 
 ## License
 
