@@ -1,4 +1,5 @@
 # ca-dmv
+![License](https://img.shields.io/github/license/rjindael/ca-dmv) ![Star](https://img.shields.io/github/stars/rjindael/ca-dmv?style=social)
 
 Bot that randomly posts [23,463 personalized license plate applications the California DMV received from 2015-2016](https://github.com/veltman/ca-license-plates) to [Twitter](https://twitter.com/ca_dmv_bot) every so often.
 
