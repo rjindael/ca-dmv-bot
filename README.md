@@ -21,8 +21,9 @@ The data ca-dmv uses is sourced from [@veltman/ca-license-plates](https://github
 - Made on a slow weekend; only ephemeral logging exists and there is little-to-no error checking
 
 ## Credits
-
-Thanks to Noah Veltman ([@veltman](https://github.com/veltman)) for the application dataset and to Kay ([@zyrnwtf](https://twitter.com/zyrnwtf)) for teaching me the ins and outs of the Twitter API.
+- Noah Veltman ([@veltman](https://github.com/veltman)) - Compiling the data that ca-dmv uses
+- Dylan ([@brickdylanfake](https://twitter.com/brickdylanfake)) - Creating a custom font for the bot to use as well as making the profile picture and banner of the Twitter account
+- Kay ([@zyrnwtf](https://twitter.com/zyrnwtf)) - Teaching me how to use the Twitter API
 
 ## License
 
