@@ -16,7 +16,7 @@ function verify(tweet) {
         let message = await channel.send({
             "files": [ tweet.plate.file ],
             "content": `\`\`\`${tweet.text}\`\`\``
-                + `\n<@&${process.env.DISCORD_MODERATOR_ROLE_ID}> React to this message in order to post this plate. This message will timeout in **1 day**. Only disapprove plates that may get the Twitter account suspended.\n`
+                + `\n<@&${process.env.DISCORD_MODERATOR_ROLE_ID}> React to this message in order to post this plate (\`${tweet.plate.text}\`). This message will timeout in **1 day**. Only disapprove plates that may get the Twitter account suspended.\n`
                 + `${tweet.trimmed && `\n**WARNING**: The customer reason was trimmed from its original to meet the Twitter 280 character limit! (tweet is now ${tweet.text.length} characters long)` || ""}`
                 + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n**WARNING**: This plate appears to be invalid.` || ""}`,
         })

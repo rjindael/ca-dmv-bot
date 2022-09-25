@@ -33,7 +33,7 @@ async function generate() {
 
     return {
         "file": file,
-        "text": plate.text,
+        "text": plate.text.toUpperCase(),
         "status": plate.status,
         "customer": (plate.customer.length == 0 ? "(no reason specified)" : plate.customer),
         "dmv": (plate.dmv.length == 0 ? "(no reason specified)" : plate.dmv)
