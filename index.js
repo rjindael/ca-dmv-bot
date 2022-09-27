@@ -47,7 +47,7 @@ async function post() {
     }
 
     let link = await twitter.post(tweet)
-    await discord.notify(link)
+    await discord.notify(link, valid)
     
     dmv.remove(tweet.plate)
 }
