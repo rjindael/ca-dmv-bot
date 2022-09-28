@@ -19,7 +19,7 @@ function verify(tweet) {
                 .setDisabled(false)
         )
         .addComponents(
-                new ButtonBuilder()
+            new ButtonBuilder()
                 .setLabel("Disapprove")
                 .setStyle(ButtonStyle.Danger)
                 .setCustomId("disapprove")
