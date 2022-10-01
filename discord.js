@@ -5,6 +5,7 @@ var channel
 
 const thumbsUp = "\uD83D\uDC4D" // U+1F44D in UTF-16 (👍)
 const thumbsDown = "\uD83D\uDC4E" // U+1FF4E in UTF-16 (👎)
+const warning = "\u26A0\uFE0F" // U+26A0 in UTF-16 (⚠️)
 
 client.once("ready", () => {
     console.log(`Logged into Discord as "${client.user.tag}" (${client.user.id})`)
@@ -17,8 +18,8 @@ function verify(tweet) {
             "files": [ tweet.plate.file ],
             "content": `\`\`\`${tweet.text}\`\`\``
                 + `\n<@&${process.env.DISCORD_MODERATOR_ROLE_ID}> React to this message in order to post this plate (\`${tweet.plate.text}\`). This message will timeout in **1 day**. Only disapprove plates that may get the Twitter account suspended.\n`
-                + `${tweet.trimmed && `\n**WARNING**: The customer reason was trimmed from its original to meet the Twitter 280 character limit! (tweet is now ${tweet.text.length} characters long)` || ""}`
-                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n**WARNING**: This plate appears to be invalid.` || ""}`,
+                + `${tweet.trimmed && `\n**${warning} WARNING**: The customer reason was trimmed from its original to meet the Twitter 280 character limit! (tweet is now ${tweet.text.length} characters long) ${warning}` || ""}`
+                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n**${warning} WARNING**: This plate appears to be invalid. ${warning}` || ""}`,
         })
 
         Promise.all([ message.react(thumbsUp), message.react(thumbsDown) ])
