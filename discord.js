@@ -19,7 +19,6 @@ function verify(tweet) {
             "content": `\`\`\`${tweet.text}\`\`\``
                 + `\n<@&${process.env.DISCORD_MODERATOR_ROLE_ID}> React to this message in order to post this plate (\`${tweet.plate.text}\`). This message will timeout in **1 day**. Only disapprove plates that may get the Twitter account suspended.\n`
                 + `${tweet.trimmed && `\n**${warning} WARNING**: The customer reason was trimmed from its original to meet the Twitter 280 character limit! (tweet is now ${tweet.text.length} characters long) ${warning}` || ""}`
-                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n**${warning} WARNING**: This plate appears to be invalid. ${warning}` || ""}`,
         })
 
         Promise.all([ message.react(thumbsUp), message.react(thumbsDown) ])
@@ -34,6 +33,15 @@ function verify(tweet) {
 
         const collector = message.createReactionCollector({ filter, time: 60 * 60 * 24 * 100 })
         let responded = false // this is a stupid hack since I don't really want to figure out how to detach event listeners
+
+        // quick check for errors in data
+        if(tweet.text.match(/NO.*?MICRO/s)){
+            await channel.send(`${warning} NO MICRO Error.`)
+            resolve(false)
+        } else if(tweet.text.match(/QUICK.*?WEB/s)){
+            await channel.send(`${warning} QUICK WEB Error.`)
+            resolve(false)
+        }
 
         collector.on("collect", async (reaction, user) => {
             responded = true
