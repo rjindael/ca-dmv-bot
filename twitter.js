@@ -4,6 +4,11 @@ const twit = require("twit")
 var client
 
 function format(plate) {
+    if (plate.customer == "NO MICRO") {
+        // explicit case -- always deny
+        return false
+    }
+    
     let tweet = `Customer: ${plate.customer}\nDMV: ${plate.dmv}\n\nVerdict: ${plate.status ? "ACCEPTED": "DENIED"}`
     let trimmed = false
 
