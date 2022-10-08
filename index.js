@@ -1,8 +1,11 @@
 const dotenv = require("dotenv")
+const schedule = require("node-schedule")
 
 const discord = require("./discord")
 const twitter = require("./twitter")
 const dmv = require("./dmv")
+
+var working = false
 
 dotenv.config()
 
@@ -28,6 +31,8 @@ function verify(tweet) {
 }
 
 async function post() {
+    working = true
+
     let tweet
     let valid = false
 
@@ -50,14 +55,15 @@ async function post() {
     await discord.notify(link)
     
     dmv.remove(tweet.plate)
+
+    working = false
 }
 
-var working = false
-
-setInterval(async () => {
+schedule.scheduleJob("0 * * * *", async () => {
     if (!working) {
-        working = true
+        // The caveat of this is that if any jobs need to be run while one is already running,
+        // it'll just be canceled entirely instead of waiting for that one to complete
+
         await post()
-        working = false
     }
-}, process.env.TIMEOUT * 1000)
+})
