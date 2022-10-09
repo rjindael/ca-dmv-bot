@@ -1,14 +1,18 @@
 const fs = require("fs")
 const twit = require("twit")
+const util = require("node:util")
+
+const format = "Real personalized license plate applications that the California DMV received from 2015-2016. Posts every hour. Not the actual DMV (see @CA_DMV). (%d%)"
 
 var client
+var handle
 
 function format(plate) {
     if (plate.customer == "NO MICRO") {
         // explicit case -- always deny
         return false
     }
-    
+
     let tweet = `Customer: ${plate.customer}\nDMV: ${plate.dmv}\n\nVerdict: ${plate.status ? "ACCEPTED": "DENIED"}`
     let trimmed = false
 
@@ -54,11 +58,18 @@ async function post(tweet) {
     })
 }
 
+function update(total, remainder) {
+    client.post("account/update_profile", {
+        description: util.format(format, (((total - remainder) / total) * 100).toString().slice(0, 2))
+    })
+}
+
 function initialize(authentication) {
     client = new twit(authentication)
     client.get("account/verify_credentials", (_, data, __) => {
+        handle = data.screen_name
         console.log(`Logged into Twitter as "${data.name}" (@${data.screen_name} : ${data.id_str})`)
     })
 }
 
-module.exports = { format, post, initialize }
+module.exports = { format, post, initialize, update, handle }

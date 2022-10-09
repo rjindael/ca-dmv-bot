@@ -93,4 +93,4 @@ function initialize() {
     applications = require(path.join(__dirname, "data", "applications.json"))
 }
 
-module.exports = { draw, generate, remove, initialize, total }
+module.exports = { draw, generate, remove, initialize, applications, total }

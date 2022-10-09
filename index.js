@@ -67,3 +67,7 @@ schedule.scheduleJob("0 * * * *", async () => {
         await post()
     }
 })
+
+schedule.scheduleJob("0 0 * * *", () => {
+    twitter.update(dmv.applications.length, dmv.total)
+})
