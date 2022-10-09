@@ -16,7 +16,7 @@ function draw(text, file) {
     return new Promise((resolve, reject) => {
         let style = Math.floor(Math.random() * styles.length)
         let plate = gm(path.join(__dirname, "resources", `plate/${style}.png`)).fill(styles[style].color)
-        
+
         plate.font(path.join(__dirname, "resources", "fontface.ttf"), 230)
         plate.drawText(0, 70, text, "center")
     
@@ -73,7 +73,7 @@ function initialize() {
 
     if (!fs.existsSync(path.join(__dirname, "data"))) {
         fs.mkdirSync(path.join(__dirname, "data"))
-        fs.mkdirSync(path.join(__dirname, "tmp"))
+        fs.mkdirSync(path.join(__dirname, "data", "tmp"))
 
         // [0] text, [1], [2] customer, [3] dmv, [4] status
 

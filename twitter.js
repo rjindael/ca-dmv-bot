@@ -2,7 +2,7 @@ const fs = require("fs")
 const twit = require("twit")
 const util = require("node:util")
 
-const format = "Real personalized license plate applications that the California DMV received from 2015-2016. Posts every hour. Not the actual DMV (see @CA_DMV). (%d%)"
+const bio = "Real personalized license plate applications that the California DMV received from 2015-2016. Posts every hour. Not the actual DMV (see @CA_DMV). (%d%)"
 
 var client
 var handle
@@ -60,7 +60,7 @@ async function post(tweet) {
 
 function update(total, remainder) {
     client.post("account/update_profile", {
-        description: util.format(format, (((total - remainder) / total) * 100).toString().slice(0, 2))
+        description: util.format(bio, (((total - remainder) / total) * 100).toString().slice(0, 2))
     })
 }
 
