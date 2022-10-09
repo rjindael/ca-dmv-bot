@@ -1,62 +1,78 @@
-const { Client, GatewayIntentBits, PermissionsBitField } = require("discord.js")
+const { Client, GatewayIntentBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js")
 
-var client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions] })
+var client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages] })
 var channel
 
-const thumbsUp = "\uD83D\uDC4D" // U+1F44D in UTF-16 (👍)
-const thumbsDown = "\uD83D\uDC4E" // U+1FF4E in UTF-16 (👎)
 const warning = "\u26A0\uFE0F" // U+26A0 in UTF-16 (⚠️)
 
 function verify(tweet) {
     return new Promise(async (resolve) => {
+        let components = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setLabel("Approve")
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId("approve")
+                    .setDisabled(false)
+            )
+            .addComponents(
+                    new ButtonBuilder()
+                    .setLabel("Disapprove")
+                    .setStyle(ButtonStyle.Danger)
+                    .setCustomId("disapprove")
+                    .setDisabled(false)
+            )
+
         let message = await channel.send({
             "files": [ tweet.plate.file ],
-            "content": `\`\`\`${tweet.text}\`\`\``
-                + `\n<@&${process.env.DISCORD_MODERATOR_ROLE_ID}> React to this message in order to post this plate (\`${tweet.plate.text}\`). This message will timeout in **1 day**. Only disapprove plates that may get the Twitter account suspended.\n`
-                + `${tweet.trimmed && `\n**${warning} WARNING**: The customer reason was trimmed from its original to meet the Twitter 280 character limit! (tweet is now ${tweet.text.length} characters long) ${warning}` || ""}`
-                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n**${warning} WARNING**: This plate appears to be invalid. ${warning}` || ""}`,
+            "components": [ components ],
+            "content": `<@&${process.env.DISCORD_MODERATOR_ROLE_ID}> Click the appropriate button to approve or disapprove this tweet. Please refer to the pins for moderation guidelines.\n\`\`\`${tweet.text}\`\`\``
+                + `${tweet.trimmed && `\n${warning} The customer reason was trimmed from its original to meet the Twitter 280 character limit.` || ""}`
+                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n${warning} This plate appears to be invalid.` || ""}`,
         })
 
-        Promise.all([ message.react(thumbsUp), message.react(thumbsDown) ])
-
-        const filter = (reaction, user) => {
+        const filter = (user) => {
             let member = channel.guild.members.cache.get(user.id)            
-
-            return ([thumbsUp, thumbsDown]).includes(reaction.emoji.name)
-                && (!member.bot)
-                && (member.permissions.has(PermissionsBitField.All, true) || member.roles.cache.has(process.env.DISCORD_MODERATOR_ROLE_ID))
+            return (!member.bot) && (member.permissions.has(PermissionsBitField.All, true) || member.roles.cache.has(process.env.DISCORD_MODERATOR_ROLE_ID))
         }
 
-        const collector = message.createReactionCollector({ filter, time: 60 * 60 * 24 * 100 })
-        let responded = false // this is a stupid hack since I don't really want to figure out how to detach event listeners
+        const collector = message.createMessageComponentCollector({ filter, time: 60 * 60 * 3 * 100 })
 
-        collector.on("collect", async (reaction, user) => {
-            responded = true
-            let approved = reaction.emoji.name == thumbsUp
+        collector.on("collect", async (interaction) => {
+            let user = channel.guild.members.cache.get(interaction.user.id)    
             
-            if (approved) {
-                await channel.send(`This plate was approved by <@${user.id}>. Posting to Twitter...`)
-                resolve(true)
+            if (interaction.customId === "approve") {
+                await message.edit({
+                    "components": [],
+                    "content": `Plate \`${tweet.plate.text}\` was approved by <@${user.id}>.\n\`\`\`${tweet.text}\`\`\`. Posting to Twitter...`
+                })
+
+                resolve(message)
             } else {
-                await channel.send(`This plate was disapproved by <@${user.id}>. Fetching another one...`)
+                await message.edit({
+                    "components": [],
+                    "content": `Plate \`${tweet.plate.text}\` was disapproved by <@${user.id}>.\n\`\`\`${tweet.text}\`\`\``
+                })
+
                 resolve(false)
             }
-
-            message.reactions.removeAll()
         })
 
-        collector.on("end", async () => {
-            if (!responded) {
-                await channel.send(`Nobody responded. Fetching another one...`)
+        collector.on("end", async (collected) => {
+            if (collected.size < 1) {
+                await message.edit({
+                    "components": [],
+                    "content": `<@&${process.env.DISCORD_MODERATOR_ROLE_ID}> Nobody responded.\n\`\`\`${tweet.text}\`\`\``
+                })
+
                 resolve(false)
-                message.reactions.removeAll()
             }
         })
     })
 }
 
-async function notify(tweet) {
-    await channel.send(`Successfully posted tweet! You may view it here: ${tweet}`)
+async function notify(tweet, message) {
+    await message.edit(message.content.replace("Posting to Twitter...", `<${tweet}>`))
 }
 
 function initialize(token) {
