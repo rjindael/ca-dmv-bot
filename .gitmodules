@@ -1,0 +1,3 @@
+[submodule "resources/veltman"]
+	path = resources/veltman
+	url = git@github.com:veltman/ca-license-plates.git
