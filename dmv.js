@@ -17,7 +17,7 @@ var total = 0
 function draw(text, file) {
     return new Promise((resolve, reject) => {
         let style = Math.floor(Math.random() * styles.length)
-        let plate = gm(path.join(__dirname, "resources", `plate/${style}.png`)).fill(styles[style].color)
+        let plate = gm(path.join(__dirname, "resources", `styles/${style}.png`)).fill(styles[style].color)
 
         plate.font(path.join(__dirname, "resources", "fontface.ttf"), 230)
         plate.drawText(0, 70, text, "center")
