@@ -7,11 +7,6 @@ const thumbsUp = "\uD83D\uDC4D" // U+1F44D in UTF-16 (👍)
 const thumbsDown = "\uD83D\uDC4E" // U+1FF4E in UTF-16 (👎)
 const warning = "\u26A0\uFE0F" // U+26A0 in UTF-16 (⚠️)
 
-client.once("ready", () => {
-    console.log(`Logged into Discord as "${client.user.tag}" (${client.user.id})`)
-    channel = client.channels.cache.find(channel => channel.name === process.env.DISCORD_CHANNEL_NAME)
-})
-
 function verify(tweet) {
     return new Promise(async (resolve) => {
         let message = await channel.send({
@@ -66,6 +61,15 @@ async function notify(tweet) {
 
 function initialize(token) {
     client.login(token)
+
+    return new Promise((resolve) => {
+        client.once("ready", () => {
+            console.log(`Logged into Discord as "${client.user.tag}" (${client.user.id})`)
+            channel = client.channels.cache.find(channel => channel.name === process.env.DISCORD_CHANNEL_NAME)
+    
+            resolve()
+        })
+    })
 }
 
 module.exports = { verify, notify, initialize }

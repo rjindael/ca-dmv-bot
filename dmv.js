@@ -1,7 +1,9 @@
 const crypto = require("crypto")
+const csv = require("csv-parser")
 const fs = require("fs")
 const gm = require("gm")
 const path = require("path")
+const str = require("string-to-stream")
 
 // SHA-512 hash of https://github.com/veltman/ca-license-plates/raw/599ec49d73c3e1696a4856fd47051b332b8e080e/applications.csv
 const fingerprint = "b9e28f19405149ef4c3c4f128143f115d3b12f78da02cefe757a469289ee57fadaba9a2f644b32c5cdbf41ae18994426d2b8760fe74ed35f3439d8ef90d87694"
@@ -55,19 +57,21 @@ async function remove(plate) {
     fs.writeFileSync(path.join(__dirname, "data", "applications.json"), JSON.stringify(applications))
 }
 
-function initialize() {
+async function initialize() {
     if (!fs.existsSync(path.join(__dirname, "resources")) || !fs.existsSync(path.join(__dirname, "resources", "veltman", "applications.csv"))) {
         throw "Bad install"
     }
 
     // Parse Veltman CSV
-    let csv = fs.readFileSync(path.join(__dirname, "resources", "veltman", "applications.csv"))
+    let veltman = fs.readFileSync(path.join(__dirname, "resources", "veltman", "applications.csv"))
     if (crypto.createHash("sha512").update(csv).digest("hex") != fingerprint) {
         throw "Invalid or corrupt data"
     }
 
-    csv = csv.split("\n")
-    csv.shift()
+    let results = []
+    await new Promise((resolve) => {
+        str(veltman).pipe(csv()).on("data", (data) => results.push(data)).on("env").on("env", resolve)
+    })
 
     total = csv.length
 

@@ -64,11 +64,16 @@ function update(total, remainder) {
     })
 }
 
-function initialize(authentication) {
+async function initialize(authentication) {
     client = new twit(authentication)
-    client.get("account/verify_credentials", (_, data, __) => {
-        handle = data.screen_name
-        console.log(`Logged into Twitter as "${data.name}" (@${data.screen_name} : ${data.id_str})`)
+
+    return new Promise((resolve) => {
+        client.get("account/verify_credentials", (_, data, __) => {
+            handle = data.screen_name
+            console.log(`Logged into Twitter as "${data.name}" (@${data.screen_name} : ${data.id_str})`)
+
+            resolve()
+        })
     })
 }
 
