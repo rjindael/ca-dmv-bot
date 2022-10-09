@@ -64,35 +64,34 @@ async function initialize() {
 
     // Parse Veltman CSV
     let veltman = fs.readFileSync(path.join(__dirname, "resources", "veltman", "applications.csv"))
-    if (crypto.createHash("sha512").update(csv).digest("hex") != fingerprint) {
+    if (crypto.createHash("sha512").update(veltman).digest("hex") != fingerprint) {
         throw "Invalid or corrupt data"
     }
 
     let results = []
     await new Promise((resolve) => {
-        str(veltman).pipe(csv()).on("data", (data) => results.push(data)).on("env").on("env", resolve)
+        str(veltman).pipe(csv()).on("data", (data) => results.push(data)).on("end", resolve)
     })
 
-    total = csv.length
+    total = results.length
 
     if (!fs.existsSync(path.join(__dirname, "data"))) {
         fs.mkdirSync(path.join(__dirname, "data"))
         fs.mkdirSync(path.join(__dirname, "data", "tmp"))
 
-        // [0] text, [1], [2] customer, [3] dmv, [4] status
-
-        for (let i = 0; i < csv.length; i++) {
-            let rows = csv[i].split(",")
-
-            csv[i] = {
-                "text": rows[0],
-                "customer": rows[2],
-                "dmv": rows[3],
-                "status": rows[4] == "Y"
+        // plate, review_reason_code, customer_meaning,reviewer_comments,status
+        // text,                      customer,        dmv,              status
+        
+        for (let i = 0; i < results.length; i++) {
+            results[i] = {
+                "text": results[i].plate,
+                "customer": results[i].customer_meaning,
+                "dmv": results[i].reviewer_comments,
+                "status": results[i].status == "Y"
             }
         }
 
-        fs.writeFileSync(path.join(__dirname, "data", "applications.json"), JSON.stringify(csv))
+        fs.writeFileSync(path.join(__dirname, "data", "applications.json"), JSON.stringify(results))
     }
     
     applications = require(path.join(__dirname, "data", "applications.json"))
