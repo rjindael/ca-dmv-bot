@@ -5,19 +5,20 @@ const path = require("path")
 
 // SHA-512 hash of https://github.com/veltman/ca-license-plates/raw/599ec49d73c3e1696a4856fd47051b332b8e080e/applications.csv
 const fingerprint = "b9e28f19405149ef4c3c4f128143f115d3b12f78da02cefe757a469289ee57fadaba9a2f644b32c5cdbf41ae18994426d2b8760fe74ed35f3439d8ef90d87694"
+const styles = [
+    { "color": "#1f2a64" }
+]
 
 var applications = []
 var total = 0
 
-let color = "#1f2a64"
-let fontsize = 230
-let offset = 70
-
 function draw(text, file) {
     return new Promise((resolve, reject) => {
-        let plate = gm(path.join(__dirname, "resources", "plate.png")).fill(color)
-        plate.font(path.join(__dirname, "resources", "fontface.ttf"), fontsize)
-        plate.drawText(0, offset, text, "center")
+        let style = Math.floor(Math.random() * styles.length)
+        let plate = gm(path.join(__dirname, "resources", `plate/${style}.png`)).fill(styles[style].color)
+        
+        plate.font(path.join(__dirname, "resources", "fontface.ttf"), 230)
+        plate.drawText(0, 70, text, "center")
     
         plate.write(file, (error) => {
             if (error) {
