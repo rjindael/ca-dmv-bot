@@ -25,6 +25,8 @@ async function post() {
     let tweet
     let valid = false
 
+    discord.notify()
+    
     while (!valid) {
         tweet = twitter.format(await dmv.generate())
 
@@ -41,7 +43,7 @@ async function post() {
     }
 
     let link = await twitter.post(tweet)
-    await discord.notify(link)
+    await discord.update(link, valid)
     
     dmv.remove(tweet.plate)
 
