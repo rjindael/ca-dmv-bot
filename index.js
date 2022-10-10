@@ -48,9 +48,9 @@ async function post() {
     working = false
 }
 
-dotenv.config()
+async function initialize() {
+    dotenv.config()
 
-(async () => {
     await dmv.initialize()
     await discord.initialize(process.env.DISCORD_TOKEN)
     await twitter.initialize({
@@ -72,4 +72,6 @@ dotenv.config()
     schedule.scheduleJob("0 0 * * *", () => {
         twitter.update(dmv.applications.length, dmv.total)
     })
-})()
+}
+
+initialize()
