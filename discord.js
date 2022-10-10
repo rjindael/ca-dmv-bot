@@ -23,6 +23,7 @@ function verify(tweet) {
                     .setDisabled(false)
             )
 
+        let warned = []
         let message = await channel.send({
             "files": [ tweet.plate.file ],
             "components": [ components ],
@@ -32,26 +33,39 @@ function verify(tweet) {
         })
 
         const filter = (user) => {
-            let member = channel.guild.members.cache.get(user.id)            
-            return (!member.bot) && (member.permissions.has(PermissionsBitField.All, true) || member.roles.cache.has(process.env.DISCORD_MODERATOR_ROLE_ID))
+            let member = channel.guild.members.cache.get(user.id)
+            let passed = (!member.bot) && (member.permissions.has(PermissionsBitField.All, true) || member.roles.cache.has(process.env.DISCORD_MODERATOR_ROLE_ID))
+
+            if (!passed && !member.bot && !warned.includes(user.id)) {
+                warned.push(user.id)
+
+                let warning = await channel.send(`<@${user.id}> You are not allowed to perform this action.`)
+                setTimeout(() => {
+                    warning.delete()
+                }, 5 * 1000)
+            }
+
+            return passed
         }
 
         const collector = message.createMessageComponentCollector({ filter, time: 60 * 60 * 3 * 100 })
 
         collector.on("collect", async (interaction) => {
-            let user = channel.guild.members.cache.get(interaction.user.id)    
+            let member = channel.guild.members.cache.get(interaction.user.id)
             
+            message.removeAttachments()
+
             if (interaction.customId === "approve") {
                 await message.edit({
                     "components": [],
-                    "content": `Plate \`${tweet.plate.text}\` was approved by <@${user.id}>.\n\`\`\`${tweet.text}\`\`\`. Posting to Twitter...`
+                    "content": `Plate \`${tweet.plate.text}\` was approved by <@${member.id}>. Posting to Twitter...`
                 })
 
                 resolve(message)
             } else {
                 await message.edit({
                     "components": [],
-                    "content": `Plate \`${tweet.plate.text}\` was disapproved by <@${user.id}>.\n\`\`\`${tweet.text}\`\`\``
+                    "content": `Plate \`${tweet.plate.text}\` was disapproved by <@${member.id}>.\n\`\`\`${tweet.text}\`\`\``
                 })
 
                 resolve(false)
@@ -60,6 +74,8 @@ function verify(tweet) {
 
         collector.on("end", async (collected) => {
             if (collected.size < 1) {
+                message.removeAttachments()
+
                 await message.edit({
                     "components": [],
                     "content": `<@&${process.env.DISCORD_MODERATOR_ROLE_ID}> Nobody responded.\n\`\`\`${tweet.text}\`\`\``
