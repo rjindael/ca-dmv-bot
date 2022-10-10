@@ -34,13 +34,15 @@ function draw(text, file) {
 
 async function generate() {
     let file = path.join(__dirname, "data", "tmp", crypto.randomBytes(16).toString("hex") + ".png")
-    let plate = applications[Math.floor(Math.random() * applications.length)]
+    let index = Math.floor(Math.random() * applications.length)
+    let plate = applications[index]
 
     await draw(plate.text, file).catch((error) => console.error(error))
 
     return {
         "file": file,
-        "text": plate.text,
+        "index": index,
+        "text": (plate.text).toString().toUpperCase(),
         "status": plate.status,
         "customer": (plate.customer.length == 0 ? "(no reason specified)" : plate.customer),
         "dmv": (plate.dmv.length == 0 ? "(no reason specified)" : plate.dmv)
@@ -48,11 +50,7 @@ async function generate() {
 }
 
 async function remove(plate) {
-    let index = applications.findIndex((application) => {
-        return application.text == plate.text
-    })
-
-    applications.splice(index, 1)
+    applications.splice(plate.index, 1)
     fs.unlinkSync(plate.file)
     fs.writeFileSync(path.join(__dirname, "data", "applications.json"), JSON.stringify(applications))
 }
