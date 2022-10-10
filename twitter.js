@@ -5,7 +5,7 @@ const util = require("node:util")
 const checkmark = "\u2705" // U+2705 (✅)
 const cross = "\u274C" // U+274C (❌)
 
-const bio = "Real personalized license plate applications that the California DMV received from 2015-2016. Posts every hour. Not the actual DMV (see @CA_DMV). (%d%)"
+const bio = "Real personalized license plate applications that the California DMV received from 2015-2016. Posts every hour. Not the actual DMV (see @CA_DMV). (%s%)"
 const template = `Customer: %s\nDMV: %s\n\nVerdict: %s`
 
 var client
@@ -64,7 +64,7 @@ async function post(tweet) {
 
 function update(total, remainder) {
     client.post("account/update_profile", {
-        description: util.format(bio, Math.round(((total / remainder) * 100) * 100) / 100)
+        description: util.format(bio, (Math.round(((total - remainder / total) * 100) * 100) / 100).toString())
     })
 }
 
