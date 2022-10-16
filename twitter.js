@@ -5,8 +5,9 @@ const util = require("node:util")
 const checkmark = "\u2705" // U+2705 (✅)
 const cross = "\u274C" // U+274C (❌)
 
-const bio = "Real personalized license plate applications that the California DMV received from 2015-2016. Posts every hour. Not the actual DMV (see @CA_DMV). (%s%)"
+const bio = "Real personalized license plate applications that the California DMV received from 2015-2016. Posts hourly. Not the actual DMV (see @CA_DMV). (%s% complete)"
 const template = `Customer: %s\nDMV: %s\n\nVerdict: %s`
+const alt = "Personalized California license plate with text \"%s\"."
 
 var client
 var handle
@@ -46,7 +47,7 @@ async function post(tweet) {
         }, (_, data, __) => {
             let meta = {
                 media_id: data.media_id_string,
-                alt_text: { text: `Personalized California license plate with text "${tweet.plate.text}."`}
+                alt_text: { text: util.format(alt, tweet.plate.text) }
             }
             
             client.post("media/metadata/create", meta, (error) => {

@@ -27,9 +27,9 @@ function verify(tweet) {
         let message = await channel.send({
             "files": [ tweet.plate.file ],
             "components": [ components ],
-            "content": `<@&${process.env.DISCORD_MODERATOR_ROLE_ID}> Click the appropriate button to approve or disapprove this tweet. Please refer to the pins for moderation guidelines.\n\`\`\`${tweet.text}\`\`\``
-                + `${tweet.trimmed && `\n${warning} The customer reason was trimmed from its original to meet the Twitter 280 character limit.` || ""}`
-                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n${warning} This plate appears to be invalid.` || ""}`,
+            "content": `Click the appropriate button to approve or disapprove this tweet. Please refer to the pins for moderation guidelines.\n\`\`\`${tweet.text}\`\`\``
+                + `${tweet.trimmed && `\n${warning} **The customer reason was trimmed from its original to meet the Twitter 280 character limit.**` || ""}`
+                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n${warning} **This plate appears to be invalid.**` || ""}`,
         })
 
         const filter = async (user) => {
@@ -39,7 +39,7 @@ function verify(tweet) {
             if (!passed && !member.bot && !warned.includes(user.id)) {
                 warned.push(user.id)
 
-                let warning = await channel.send(`<@${user.id}> You are not allowed to perform this action.`)
+                let warning = await channel.send(`<@${user.id}> You are not authorized to perform this action.`)
                 setTimeout(() => {
                     warning.delete()
                 }, 5 * 1000)
@@ -87,8 +87,12 @@ function verify(tweet) {
     })
 }
 
-async function notify(tweet, message) {
+async function update(tweet, message) {
     await message.edit(message.content.replace("Posting to Twitter...", `<${tweet}>`))
+}
+
+async function notify() {
+    await channel.send(`<@&${process.env.DISCORD_MODERATOR_ROLE_ID}> New plate!`)
 }
 
 function initialize(token) {
