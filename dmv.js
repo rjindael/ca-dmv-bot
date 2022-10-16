@@ -109,4 +109,12 @@ async function initialize() {
     applications = require(path.join(__dirname, "data", "applications.json"))
 }
 
-module.exports = { draw, generate, remove, initialize, applications, total }
+function getTotal() {
+    return total
+}
+
+function getRemainder() {
+    return applications.length
+}
+
+module.exports = { draw, generate, remove, initialize, getTotal, getRemainder }

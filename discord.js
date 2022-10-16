@@ -29,7 +29,8 @@ function verify(tweet) {
             "components": [ components ],
             "content": `Click the appropriate button to approve or disapprove this tweet. Please refer to the pins for moderation guidelines.\n\`\`\`${tweet.text}\`\`\``
                 + `${tweet.trimmed && `\n${warning} **The customer reason was trimmed from its original to meet the Twitter 280 character limit.**` || ""}`
-                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n${warning} **This plate appears to be invalid.**` || ""}`,
+                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n${warning} **This plate appears to be invalid.**` || ""}`
+                + `\n`,
         })
 
         const filter = async (user) => {
@@ -108,4 +109,4 @@ function initialize(token) {
     })
 }
 
-module.exports = { verify, notify, initialize }
+module.exports = { verify, update, notify, initialize }
