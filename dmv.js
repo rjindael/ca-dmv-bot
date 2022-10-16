@@ -9,31 +9,33 @@ const twitter = require("./twitter")
 
 // SHA-512 hash of https://github.com/veltman/ca-license-plates/raw/599ec49d73c3e1696a4856fd47051b332b8e080e/applications.csv
 const fingerprint = "b9e28f19405149ef4c3c4f128143f115d3b12f78da02cefe757a469289ee57fadaba9a2f644b32c5cdbf41ae18994426d2b8760fe74ed35f3439d8ef90d87694"
-const styles = [
-    { "color": "#1f2a64" }
-]
 
 var applications = []
 var total = 0
 
 function draw(text, file) {
     return new Promise((resolve, reject) => {
-        let style = Math.floor(Math.random() * styles.length)
-        let plate = gm(path.join(__dirname, "resources", `styles/${style}.png`)).fill(styles[style].color)
+        let plate = gm(1280, 720, "#FFFFFFFF")
 
-        // Plate text
+        // Draw license plate text
+        plate.fill("#2F3C59")
         plate.font(path.join(__dirname, "resources", "fontface.ttf"), 230)
-        plate.drawText(0, 70, text, "center")
-        
-        // Watermark
-        plate.fill("#00000032").font("Calibri", 45).drawText(30, 30, `@${twitter.handle}`, "southwest")
+        plate.drawText(0, 90, text, "center").raise(10, 181)
 
-        plate.write(file, (error) => {
-            if (error) {
-                reject(error)
-            }
+        // Draw watermark
+        plate.fill("#00000032")
+        plate.font("Calibri", 30)
+        plate.drawText(20, 20, `@ca_dmv_bot`, "southwest")
 
-            resolve()
+        // Overlay this image with the license plate
+        // This method is super stupid :-)
+        plate.write(file + "_1.png", () => {
+            plate = gm(path.join(__dirname, "resources", "template.png"))
+            plate.composite(file + "_1.png")
+            plate.write((file), () => {
+                fs.rmSync(file + "_1.png")
+                resolve()
+            })
         })
     })
 }
