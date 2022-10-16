@@ -32,7 +32,7 @@ function verify(tweet) {
                 + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n${warning} This plate appears to be invalid.` || ""}`,
         })
 
-        const filter = (user) => {
+        const filter = async (user) => {
             let member = channel.guild.members.cache.get(user.id)
             let passed = (!member.bot) && (member.permissions.has(PermissionsBitField.All, true) || member.roles.cache.has(process.env.DISCORD_MODERATOR_ROLE_ID))
 
