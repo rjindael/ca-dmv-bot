@@ -33,14 +33,14 @@ function verify(tweet) {
                 + `\n`,
         })
 
-        const filter = async (user) => {
-            let member = channel.guild.members.cache.get(user.id)
+        const filter = async (interaction) => {
+            let member = channel.guild.members.cache.get(interaction.user.id)
             let passed = (!member.bot) && (member.permissions.has(PermissionsBitField.All, true) || member.roles.cache.has(process.env.DISCORD_MODERATOR_ROLE_ID))
 
-            if (!passed && !member.bot && !warned.includes(user.id)) {
-                warned.push(user.id)
+            if (!passed && !member.bot && !warned.includes(member.id)) {
+                warned.push(member.id)
 
-                let warning = await channel.send(`<@${user.id}> You are not authorized to perform this action.`)
+                let warning = await channel.send(`<@${member.id}> You are not authorized to perform this action.`)
                 setTimeout(() => {
                     warning.delete()
                 }, 5 * 1000)
