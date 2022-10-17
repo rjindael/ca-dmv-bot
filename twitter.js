@@ -82,4 +82,8 @@ async function initialize(authentication) {
     })
 }
 
-module.exports = { format, post, initialize, update, handle }
+function getHandle() {
+    return handle
+}
+
+module.exports = { format, post, initialize, update, getHandle }

@@ -7,9 +7,6 @@ const str = require("string-to-stream")
 
 const twitter = require("./twitter")
 
-// SHA-512 hash of https://github.com/veltman/ca-license-plates/raw/599ec49d73c3e1696a4856fd47051b332b8e080e/applications.csv
-const fingerprint = "b9e28f19405149ef4c3c4f128143f115d3b12f78da02cefe757a469289ee57fadaba9a2f644b32c5cdbf41ae18994426d2b8760fe74ed35f3439d8ef90d87694"
-
 var applications = []
 var total = 0
 
@@ -25,7 +22,7 @@ function draw(text, file) {
         // Draw watermark
         plate.fill("#00000032")
         plate.font("Calibri", 30)
-        plate.drawText(20, 20, `@ca_dmv_bot`, "southwest")
+        plate.drawText(20, 20, `@${twitter.getHandle()}`, "southwest")
 
         // Overlay this image with the license plate
         // This method is super stupid :-)
@@ -70,10 +67,6 @@ async function initialize() {
 
     // Parse Veltman CSV
     let veltman = fs.readFileSync(path.join(__dirname, "resources", "veltman", "applications.csv"))
-    if (crypto.createHash("sha512").update(veltman).digest("hex") != fingerprint) {
-        throw "Invalid or corrupt data"
-    }
-
     let results = []
     await new Promise((resolve) => {
         str(veltman).pipe(csv()).on("data", (data) => results.push(data)).on("end", resolve)
