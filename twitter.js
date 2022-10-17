@@ -62,7 +62,7 @@ async function post(tweet) {
 
 function update(total, remainder) {
     client.post("account/update_profile", {
-        description: util.format(bio, (Math.round(((total - remainder / total) * 100) * 100) / 100).toString())
+        description: util.format(bio, (Math.round((((total - remainder) / total) * 100) * 100) / 100).toString())
     })
 }
 

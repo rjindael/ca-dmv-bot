@@ -73,7 +73,7 @@ async function initialize() {
     })
     
     schedule.scheduleJob("0 0 * * *", () => {
-        twitter.update(dmv.getRemainder(), dmv.getTotal())
+        twitter.update(dmv.getTotal(), dmv.getRemainder())
     })
 
     await post()
