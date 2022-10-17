@@ -49,7 +49,7 @@ function verify(tweet) {
             return passed
         }
 
-        const collector = message.createMessageComponentCollector({ filter, time: 60 * 60 * 3 * 100 })
+        const collector = message.createMessageComponentCollector({ filter, time: 60 * 60 * 3 * 1000 })
 
         collector.on("collect", async (interaction) => {
             let member = channel.guild.members.cache.get(interaction.user.id)
