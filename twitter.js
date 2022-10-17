@@ -2,9 +2,6 @@ const fs = require("fs")
 const twit = require("twit")
 const util = require("node:util")
 
-const checkmark = "\u2705" // U+2705 (✅)
-const cross = "\u274C" // U+274C (❌)
-
 const bio = "Real personalized license plate applications that the California DMV received from 2015-2016. Posts hourly. Not the actual DMV (see @CA_DMV). (%s% complete)"
 const template = `Customer: %s\nDMV: %s\n\nVerdict: %s`
 const alt = "Personalized California license plate with text \"%s\"."
@@ -18,7 +15,7 @@ function format(plate) {
         return false
     }
 
-    let tweet = util.format(template, plate.customer, plate.dmv, plate.status ? `ACCEPTED ${checkmark}`: `DENIED ${cross}`)
+    let tweet = util.format(template, plate.customer, plate.dmv, plate.status ? `ACCEPTED`: `DENIED`)
     let trimmed = false
 
     if (tweet.length > 280) {
@@ -30,7 +27,7 @@ function format(plate) {
         }
 
         trimmed = plate.customer.slice(0, -remove)
-        tweet = util.format(template, plate.customer + "...", plate.dmv, plate.status ? `ACCEPTED ${checkmark}`: `DENIED ${cross}`)
+        tweet = util.format(template, plate.customer + "...", plate.dmv, plate.status ? `ACCEPTED`: `DENIED`)
     }
 
     return {

@@ -15,14 +15,14 @@ function draw(text, file) {
         let plate = gm(1280, 720, "#FFFFFFFF")
 
         // Draw license plate text
-        plate.fill("#2F3C59")
-        plate.font(path.join(__dirname, "resources", "fontface.ttf"), 230)
-        plate.drawText(0, 90, text, "center").raise(10, 181)
+        plate.fill("#1F2A64")
+        plate.font(path.join(__dirname, "resources", "fontface.ttf"), 240)
+        plate.drawText(0, 80, text, "center").raise(10, 190)
 
         // Draw watermark
         plate.fill("#00000032")
-        plate.font("Calibri", 30)
-        plate.drawText(20, 20, `@${twitter.getHandle()}`, "southwest")
+        plate.font("Calibri", 25)
+        plate.drawText(25, 25, `@${twitter.getHandle()}`, "southeast")
 
         // Overlay this image with the license plate
         // This method is super stupid :-)
