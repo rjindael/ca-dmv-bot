@@ -16,12 +16,12 @@ function draw(text, file) {
 
         // Draw license plate text
         plate.fill("#1F2A64")
-        plate.font(path.join(__dirname, "resources", "fontface.ttf"), 240)
+        plate.font(path.join(__dirname, "resources", "fonts", "licenseplate.ttf"), 240)
         plate.drawText(0, 80, text, "center").raise(10, 190)
 
         // Draw watermark
         plate.fill("#00000032")
-        plate.font("Calibri", 25)
+        plate.font(path.join(__dirname, "resources", "fonts", "cascadiacode.ttf"), 25)
         plate.drawText(25, 25, `@${twitter.getHandle()}`, "southeast")
 
         // Overlay this image with the license plate
