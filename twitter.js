@@ -4,7 +4,7 @@ const util = require("node:util")
 
 const bio = "Real personalized license plate applications that the California DMV received from 2015-2016. Posts hourly. Not the actual DMV (see @CA_DMV). (%s% complete)"
 const template = `Customer: %s\nDMV: %s\n\nVerdict: %s`
-const alt = "Personalized California license plate with text \"%s\"."
+const alt = "California license plate with text \"%s\"."
 
 var client
 var handle
