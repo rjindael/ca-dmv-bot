@@ -28,17 +28,18 @@ async function post() {
     discord.notify()
     
     while (!valid) {
-        tweet = twitter.format(await dmv.generate())
+        let plate = await dmv.generate()
+        tweet = twitter.format(plate)
 
         if (tweet === false) {
-            dmv.remove(tweet.plate)
+            dmv.remove(plate)
             continue
         }
 
         valid = await verify(tweet)
 
         if (!valid) {
-            dmv.remove(tweet.plate)
+            dmv.remove(plate)
         }
     }
 
@@ -72,8 +73,10 @@ async function initialize() {
     })
     
     schedule.scheduleJob("0 0 * * *", () => {
-        twitter.update(dmv.applications.length, dmv.total)
+        twitter.update(dmv.getTotal(), dmv.getRemainder())
     })
+
+    await post()
 }
 
 initialize()

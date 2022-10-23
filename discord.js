@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js")
+const { Client, GatewayIntentBits, PermissionsBitField, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js")
 
 var client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages] })
 var channel
@@ -29,17 +29,18 @@ function verify(tweet) {
             "components": [ components ],
             "content": `Click the appropriate button to approve or disapprove this tweet (\`${tweet.plate.text}\`). Please refer to the pins for moderation guidelines.\n\`\`\`${tweet.text}\`\`\``
                 + `${tweet.trimmed && `\n${warning} **The customer reason was trimmed from its original to meet the Twitter 280 character limit.**` || ""}`
-                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n${warning} **This plate appears to be invalid.**` || ""}`,
+                + `${(tweet.plate.customer.toLowerCase().includes("quickweb") || tweet.plate.customer.toLowerCase().includes("no micro")) && `\n${warning} **This plate appears to be invalid.**` || ""}`
+                + `\n`,
         })
 
-        const filter = async (user) => {
-            let member = channel.guild.members.cache.get(user.id)
+        const filter = async (interaction) => {
+            let member = channel.guild.members.cache.get(interaction.user.id)
             let passed = (!member.bot) && (member.permissions.has(PermissionsBitField.All, true) || member.roles.cache.has(process.env.DISCORD_MODERATOR_ROLE_ID))
 
-            if (!passed && !member.bot && !warned.includes(user.id)) {
-                warned.push(user.id)
+            if (!passed && !member.bot && !warned.includes(member.id)) {
+                warned.push(member.id)
 
-                let warning = await channel.send(`<@${user.id}> You are not authorized to perform this action.`)
+                let warning = await channel.send(`<@${member.id}> You are not authorized to perform this action.`)
                 setTimeout(() => {
                     warning.delete()
                 }, 5 * 1000)
@@ -48,7 +49,7 @@ function verify(tweet) {
             return passed
         }
 
-        const collector = message.createMessageComponentCollector({ filter, time: 60 * 60 * 3 * 100 })
+        const collector = message.createMessageComponentCollector({ filter, time: 60 * 60 * 3 * 1000 })
 
         collector.on("collect", async (interaction) => {
             let member = channel.guild.members.cache.get(interaction.user.id)
@@ -108,4 +109,4 @@ function initialize(token) {
     })
 }
 
-module.exports = { verify, notify, initialize }
+module.exports = { verify, update, notify, initialize }

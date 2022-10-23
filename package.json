@@ -19,7 +19,7 @@
   "homepage": "https://github.com/rjindael/ca-dmv#readme",
   "dependencies": {
     "csv-parser": "^3.0.0",
-    "discord.js": "^14.3.0",
+    "discord.js": "^14.6.0",
     "dotenv": "^16.0.2",
     "gm": "^1.23.1",
     "node-schedule": "^2.1.0",

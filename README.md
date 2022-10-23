@@ -30,3 +30,5 @@ The data ca-dmv uses is sourced from [@veltman/ca-license-plates](https://github
 ## License
 
 ca-dmv is licensed under the MIT license. A copy of it [has been included](https://github.com/rjindael/ca-dmv/blob/trunk/LICENSE) with ca-dmv.
+
+ca-dmv uses the [Cascadia Code](https://github.com/microsoft/cascadia-code) font, a project licensed under the SIL Open Font License (OFL).
