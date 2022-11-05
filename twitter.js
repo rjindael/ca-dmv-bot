@@ -6,6 +6,14 @@ const bio = "Real personalized license plate applications that the California DM
 const template = `Customer: %s\nDMV: %s\n\nVerdict: %s`
 const alt = "California license plate with text \"%s\"."
 
+const symbols = {
+    "#": "hand",
+    "$": "heart",
+    "+": "plus",
+    "&": "star",
+    "/": ""
+}
+
 var client
 var handle
 
@@ -42,9 +50,22 @@ async function post(tweet) {
         client.post("media/upload", {
             media_data: fs.readFileSync(tweet.plate.file, { encoding: "base64" })
         }, (_, data, __) => {
+            // alias symbols in the tweet plate alt text for accessibility purposes
+            let altLicense = tweet.plate.text
+            for (let [symbol, word] of Object.entries(symbols)) {
+                if (symbol == "/") {
+                    altLicense.replace(symbol, " ")
+                    continue
+                }
+
+                altLicense.replace(symbol, ` (${word}) `)
+            }
+
+            altLicense = altLicense.trim()
+
             let meta = {
                 media_id: data.media_id_string,
-                alt_text: { text: util.format(alt, tweet.plate.text) }
+                alt_text: { text: util.format(alt, altLicense) }
             }
             
             client.post("media/metadata/create", meta, (error) => {
