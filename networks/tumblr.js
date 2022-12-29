@@ -26,7 +26,7 @@ function authenticate(credentials) {
             blogName = data.user.blogs[0].name
             handle = data.user.name
 
-            console.log(`Logged into Tumblr as "${handle}" (blog name: "${blogName}", blog title: "${data.user.blogs[0].title})"`)
+            console.log(`Logged into Tumblr as "${handle}" (blog name: "${blogName}", blog title: "${data.user.blogs[0].title}")`)
             resolve()
         })
     })

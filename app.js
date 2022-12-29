@@ -8,7 +8,7 @@ import moderation from "./moderation.js"
 var queue = []
 
 async function run() {
-    if (queue.length == 0) {
+    while (queue.length == 0) {
         addPlatesToQueue(await moderation.process())
     }
 

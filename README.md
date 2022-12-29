@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/github/license/rjindael/ca-dmv-bot) ![Star](https://img.shields.io/github/stars/rjindael/ca-dmv-bot?style=social) ![Twitter](https://img.shields.io/twitter/follow/ca_dmv_bot?style=social) ![Mastodon](https://img.shields.io/mastodon/follow/109343781423154931?domain=https%3A%2F%2Fbotsin.space&style=social)
 
-Social media bot that randomly posts 23,463 personalized license plate applications the California DMV received from 2015-2016.
+Social media bot that randomly posts [23,463 personalized license plate applications the California DMV received from 2015-2016](https://github.com/veltman/ca-license-plates).
 
 Watch it live on the following platforms:
 - Twitter: [@ca_dmv_bot](https://twitter.com/ca_dmv_bot)
