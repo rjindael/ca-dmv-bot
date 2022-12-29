@@ -31,7 +31,7 @@ function initialize(credentials) {
             await deployCommands(credentials.token)
 
             console.log(`Logged into Discord as "${client.user.tag}" (${client.user.id})`)
-            channel = client.channels.cache.find(channel => channel.name == credentials.channelName)
+            channel = client.channels.cache.find(channel => channel.id == credentials.channelId)
     
             resolve()
         })
@@ -65,7 +65,7 @@ function initialize(credentials) {
 }
 
 async function deployCommands(token) {
-    let rest = new REST({ version: '10' }).setToken(token)
+    let rest = new REST({ version: "10" }).setToken(token)
     let commands = [
         new SlashCommandBuilder().setName("review").setDescription("Review some plates").toJSON(),
         new SlashCommandBuilder().setName("queue").setDescription("Returns the plates in the queue").toJSON()
@@ -80,7 +80,7 @@ async function deployCommands(token) {
 async function interactionFilter(interaction) {
     let member = channel.guild.members.cache.get(interaction.user.id)
     
-    return (!member.bot) && (member.permissions.has(PermissionsBitField.All, true) || member.roles.cache.has(moderatorRoleId))
+    return !member.bot && member.roles.cache.has(moderatorRoleId)
 }
 
 function process() {
