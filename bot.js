@@ -54,7 +54,7 @@ async function initialize(credentials) {
             }
 
             parsedSourceRecords.push({
-                "text": sourceRecords[i].plate,
+                "text": sourceRecords[i].plate.toUpperCase(),
                 "customerComment": correctClericalErrors(sourceRecords[i].customer_meaning),
                 "dmvComment": correctClericalErrors(sourceRecords[i].reviewer_comments),
                 "verdict": sourceRecords[i].status == "Y"
@@ -123,7 +123,7 @@ async function getPlate() {
     return {
         "index": index,
         "fileName": path.resolve(fileName),
-        "text": plate.text.toUpperCase(),
+        "text": plate.text,
         "customerComment": plate.customerComment,
         "dmvComment": plate.dmvComment,
         "verdict": plate.verdict
