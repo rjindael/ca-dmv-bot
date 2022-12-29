@@ -190,7 +190,7 @@ async function startReviewProcessForUser(interaction) {
                     case "finished":
                         console.log(`"${tag}" stopped reviewing plates.`)
                         isReviewing = false
-                        await interaction.editReply(`Stopped the approval process. You reviewed **${approvedPlates.length} plate(s).** You may always enter the command \`/review\` at any time to restart the review process.`)
+                        await interaction.editReply(`Stopped reviewing plates. You approved **${approvedPlates.length} plate(s).** You may always enter the command \`/review\` at any time to restart the review process.`)
 
                         break
                 }
@@ -205,7 +205,7 @@ async function startReviewProcessForUser(interaction) {
                     await interaction.editReply({
                         components: [],
                         files: [],
-                        content: `Stopped the approval process (timed out). You reviewed **${approvedPlates.length} plate(s).** You may always enter the command \`/review\` at any time to restart the review process.`
+                        content: `Stopped reviewing plates (timed out). You approved **${approvedPlates.length} plate(s).** You may always enter the command \`/review\` at any time to restart the review process.`
                     })
 
                     isApproving = false
