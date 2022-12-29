@@ -40,6 +40,7 @@ async function initialize(credentials) {
         fs.mkdirSync("./data")
         fs.mkdirSync("./data/tmp")
         fs.writeFileSync("./data/queue.json", "[]")
+        fs.writeFileSync("./data/posted.json", "[]")
 
         /**
          * plate, review_reason_code, customer_meaning, reviewer_comments, status
@@ -135,6 +136,10 @@ function removePlate(plate) {
 
     records.splice(plate.index, 1)
     fs.writeFileSync("./data/records.json", JSON.stringify(records))
+
+    let posted = JSON.parse(fs.readFileSync("./data/posted.json"))
+    posted.push(plate)
+    fs.writeFileSync("./data/posted.json", JSON.stringify(posted))
 }
 
 function drawPlateImage(text, fileName) {
