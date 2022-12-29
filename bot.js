@@ -81,7 +81,7 @@ function correctClericalErrors(comment) {
         return "(not on record)"
     }
 
-    let matches = ["no micro", "reg 17", "quickweb", "quick web"]
+    let matches = ["no micro", "not on micro", "reg 17", "quickweb", "quick web"]
     for (let i = 0; i < matches.length; i++) {
         if (comment.toLowerCase().includes(matches[i]) || comment.toLowerCase().trim() == matches[i]) {
             return "(not on record)"
