@@ -1,29 +1,31 @@
 {
-  "name": "ca-dmv",
-  "version": "1.0.0",
-  "description": "Bot that randomly posts 23,463 personalized license plate applications the California DMV received from 2015-2016 to Twitter every so often.",
-  "main": "index.js",
+  "name": "ca-dmv-bot",
+  "version": "1.1.0",
+  "description": "Social media bot that posts public records of California DMV vanity license plate submissions",
+  "main": "app.js",
+  "type": "module",
   "scripts": {
-    "start": "node --no-warnings index.js",
+    "start": "node --no-warnings app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rjindael/ca-dmv.git"
+    "url": "git+https://github.com/rjindael/ca-dmv-bot.git"
   },
   "author": "rjindael",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rjindael/ca-dmv/issues"
+    "url": "https://github.com/rjindael/ca-dmv-bot/issues"
   },
-  "homepage": "https://github.com/rjindael/ca-dmv#readme",
+  "homepage": "https://github.com/rjindael/ca-dmv-bot#readme",
   "dependencies": {
-    "csv-parser": "^3.0.0",
-    "discord.js": "^14.6.0",
-    "dotenv": "^16.0.2",
-    "gm": "^1.23.1",
+    "convert-csv-to-json": "^1.5.0",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "gm": "^1.25.0",
+    "masto": "^5.0.1",
     "node-schedule": "^2.1.0",
-    "string-to-stream": "^3.0.1",
-    "twit": "^2.2.11"
+    "tumblr.js": "^3.0.0",
+    "twitter-api-v2": "^1.13.0"
   }
 }
