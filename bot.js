@@ -17,7 +17,7 @@ const repositoryURL = "https://github.com/rjindael/ca-dmv-bot"
 const symbols = { "#": "hand", "$": "heart", "+": "plus", "&": "star", "/": "" }
 const formats = {
     altText: "California license plate with text \"%s\".",
-    bio: "Real personalized license plate applications that the California DMV received from 2015-2016. Posts hourly. Not the actual DMV. (%s% complete)",
+    bio: "Real personalized license plate applications that the California DMV received from 2015-2016. Posts hourly. Not the actual DMV. (%d% complete)",
     post: "Customer: %s\nDMV: %s\n\nVerdict: %s"
 }
 
@@ -182,7 +182,7 @@ function drawPlateImage(text, fileName) {
 }
 
 async function updateBio() {
-    let percentage = ((totalSourceRecords - records.length) / totalSourceRecords).toFixed(2)
+    let percentage = (((totalSourceRecords - records.length) / totalSourceRecords) * 100).toFixed(2)
 
     for (let [_, service] of Object.entries(services)) {
         await service.updateBio(util.format(formats.bio, percentage))
