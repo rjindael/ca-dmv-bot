@@ -6,7 +6,6 @@ import {
     Client,
     Events,
     GatewayIntentBits,
-    PermissionsBitField,
     REST,
     Routes,
     SlashCommandBuilder
