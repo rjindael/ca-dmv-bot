@@ -60,7 +60,6 @@ async function initialize() {
 
     queue = JSON.parse(fs.readFileSync("./data/queue.json"))
 
-    await run()
     await bot.updateBio()
 }
 

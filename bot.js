@@ -1,8 +1,9 @@
-import csvToJson from "convert-csv-to-json"
 import crypto from "node:crypto"
+import csv from "csv-parser"
 import fs from "node:fs"
 import gm from "gm"
 import path from "node:path"
+import strToStream from "string-to-stream"
 import util from "node:util"
 
 import moderation from "./moderation.js"
@@ -33,7 +34,11 @@ async function initialize(credentials) {
         throw "Bad install"
     }
 
-    let sourceRecords = csvToJson.fieldDelimiter(",").getJsonFromCsv("./resources/veltman/applications.csv")
+    let sourceRecords = []
+    await new Promise((resolve) => {
+        strToStream(fs.readFileSync("./resources/veltman/applications.csv")).pipe(csv()).on("data", record => sourceRecords.push(record)).on("end", resolve)
+    })
+
     totalSourceRecords = sourceRecords.length
 
     if (!fs.existsSync("./data")) {
