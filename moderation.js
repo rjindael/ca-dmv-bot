@@ -208,7 +208,7 @@ async function startReviewProcessForUser(interaction) {
                         content: `Stopped reviewing plates (timed out). You approved **${approvedPlates.length} plate(s).** You may always enter the command \`/review\` at any time to restart the review process.`
                     })
 
-                    isApproving = false
+                    isReviewing = false
 
                     collector.stop()
                     resolve()
