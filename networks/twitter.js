@@ -57,11 +57,11 @@ async function post(plate) {
         text = util.format(bot.formats.template, trimmedCustomerComment + "...", plate.dmvComment, plate.status ? "ACCEPTED" : "DENIED")
         
         let tweet = await client.v1.tweet(text, { media_ids: [ mediaId ] })
-        let snowflake = tweet.id
+        snowflakeStr = tweet.id_str
 
         let replyText = `(This Tweet was trimmed from its original.)\n\nCustomer: ${plate.customerComment}`
         
-        await client.v1.reply(replyText, snowflake)
+        await client.v1.reply(replyText, tweet.id)
     }
 
     return `https://twitter.com/${handle}/status/${snowflakeStr}`
