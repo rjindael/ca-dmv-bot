@@ -70,7 +70,7 @@ function getQueue() {
 }
 
 function addPlatesToQueue(plates) {
-    queue = queue.concat(plates)
+    queue = plates.concat(queue)
     fs.writeFileSync("./data/queue.json", JSON.stringify(queue))
 }
 
