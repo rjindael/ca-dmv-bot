@@ -1,5 +1,6 @@
 import {
     ActionRowBuilder,
+    ActivityType,
     AttachmentBuilder,
     ButtonBuilder,
     ButtonStyle,
@@ -234,12 +235,16 @@ async function updateNotification(notification, plate, urls, finished) {
     await notification.edit(body)
 }
 
-async function notifyQueueAmount(queue) {
-    await channel.send(`There are **${queue.length}** plate(s) left in the queue.`)
+async function notifyQueueAmount(queueAmount) {
+    await channel.send(`There are **${queueAmount}** plate(s) left in the queue.`)
 
-    if (queue.length == 0) {
+    if (queueAmount == 0) {
         app.addPlatesToQueue(await process())
     }
 }
 
-export default { initialize, process, notify, updateNotification, notifyQueueAmount }
+async function updateStatus(queueAmount) {
+    await client.setActivity(`${queueAmount} plate(s) to be posted`, { type: ActivityType.Custom })
+}
+
+export default { initialize, process, notify, updateNotification, notifyQueueAmount, updateStatus }

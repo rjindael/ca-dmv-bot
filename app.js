@@ -12,10 +12,11 @@ async function run() {
         addPlatesToQueue(await moderation.process())
     }
 
-    bot.post(queue.pop())
+    await bot.post(queue.pop())
     fs.writeFileSync("./data/queue.json", JSON.stringify(queue))
 
-    moderation.notifyQueueAmount(queue)
+    await moderation.notifyQueueAmount(queue.length)
+    await moderation.updateStatus(queue.length)
 }
 
 async function initialize() {
@@ -59,7 +60,8 @@ async function initialize() {
     })
 
     queue = JSON.parse(fs.readFileSync("./data/queue.json"))
-
+    
+    await moderation.updateStatus(queue.length)
     await bot.updateBio()
 }
 
