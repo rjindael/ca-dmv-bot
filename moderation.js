@@ -244,7 +244,7 @@ async function notifyQueueAmount(queueAmount) {
 }
 
 async function updateStatus(queueAmount) {
-    await client.setActivity(`${queueAmount} plate(s) to be posted`, { type: ActivityType.Custom })
+    client.user.setPresence({ activities: [{ name: `${queueAmount} plate(s) left to be posted` }] });
 }
 
 export default { initialize, process, notify, updateNotification, notifyQueueAmount, updateStatus }
