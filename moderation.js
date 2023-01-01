@@ -45,6 +45,7 @@ function initialize(credentials) {
                 case "review":
                     let plates = await startReviewProcessForUser(interaction)
                     app.addPlatesToQueue(plates)
+                    updateStatus(app.getQueue().length)
 
                     break
                 case "queue":
@@ -54,7 +55,7 @@ function initialize(credentials) {
                     queue = queue.map(plate => `\`${plate.text}\``)
 
                     await interaction.editReply({
-                        content: `There are **${queue.length}** plate(s) left to be posted, and they are: ${queue.join(", ")}.`,
+                        content: `There are **${queue.length}** plate(s) left to be posted, and they are (from first to last): ${queue.reverse().join(", ")}.`,
                         ephemeral: true
                     })
 
