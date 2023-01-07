@@ -1,0 +1,9 @@
+{
+    "apps": [{
+        "name": "ca-dmv-bot",
+        "script": "./app.js",
+        "watch": true,
+        "exec_interpreter": "babel-node",
+        "exec_mode": "fork"
+    }]
+}
