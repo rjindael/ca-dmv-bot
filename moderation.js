@@ -131,6 +131,8 @@ async function startReviewProcessForUser(interaction) {
     while (isReviewing) {
         await new Promise(async (resolve) => {
             let plate = await bot.getPlate()
+            bot.removePlateFromRecords(plate)
+
             let buttons = new ActionRowBuilder()
                 .addComponents(
                     new ButtonBuilder()
@@ -153,7 +155,7 @@ async function startReviewProcessForUser(interaction) {
                         .setCustomId("finished")
                         .setDisabled(approvedPlates.length == 0)
                 )
-            
+
             let examplePostText = util.format(bot.formats.post, plate.customerComment, plate.dmvComment, plate.verdict ? "ACCEPTED" : "DENIED")
 
             let message = await interaction.editReply({
@@ -169,7 +171,7 @@ async function startReviewProcessForUser(interaction) {
             }
     
             let collector = message.createMessageComponentCollector({ filter, time: 60 * 5 * 1000 })
-    
+            
             collector.on("collect", async (response) => {
                 await interaction.editReply({
                     "components": [],
@@ -180,6 +182,7 @@ async function startReviewProcessForUser(interaction) {
                     case "approve":
                         console.log(`"${tag}" approved plate "${plate.text}".`)
                         approvedPlates.push(plate)
+                        updateStatus(app.getQueue().length + approvedPlates.length)
                         await interaction.editReply(`**Approved \`${plate.text}\`.** Fetching next plate...`)
 
                         break
@@ -192,7 +195,7 @@ async function startReviewProcessForUser(interaction) {
                     case "finished":
                         console.log(`"${tag}" stopped reviewing plates.`)
                         isReviewing = false
-                        await interaction.editReply(`Stopped reviewing plates. You approved **${approvedPlates.length} plate(s).** You may always enter the command \`/review\` at any time to restart the review process.`)
+                        await interaction.editReply(`Stopped reviewing plates. You approved **${approvedPlates.length} plate(s).** You may always enter the command \`/review\` at any time to restart the review process and \`/queue\` to see all plates in queue to be posted.`)
 
                         break
                 }
@@ -244,7 +247,7 @@ async function notifyQueueAmount(queueAmount) {
     }
 }
 
-async function updateStatus(queueAmount) {
+function updateStatus(queueAmount) {
     client.user.setPresence({ activities: [{ name: `${queueAmount} plate(s) left to be posted` }] });
 }
 

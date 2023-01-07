@@ -141,11 +141,13 @@ async function getPlate() {
     }
 }
 
-function removePlate(plate) {
-    fs.unlinkSync(plate.fileName)
-
+function removePlateFromRecords(plate) {
     records.splice(plate.index, 1)
     fs.writeFileSync("./data/records.json", JSON.stringify(records))
+}
+
+function removePlate(plate) {
+    fs.unlinkSync(plate.fileName)
 
     let posted = JSON.parse(fs.readFileSync("./data/posted.json"))
     posted.push(plate)
@@ -224,4 +226,4 @@ function formatAltText(text) {
     return util.format(formats.altText, formattedText)
 }
 
-export default { repositoryURL, formats, initialize, post, getPlate, removePlate, updateBio, formatAltText }
+export default { repositoryURL, formats, initialize, post, getPlate, removePlate, removePlateFromRecords, updateBio, formatAltText }
