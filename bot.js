@@ -113,7 +113,7 @@ async function post(plate) {
         try {
             urls[service.name] = await service.post(plate)
         } catch (e) {
-            urls[service.name] = ` Service had an error. Error: \`\`\`${e.toString()}\`\`\` `
+            urls[service.name] = ` Service had an error. Error: \`${e.toString()}\` `
         }
 
         await moderation.updateNotification(notification, plate, urls, Object.keys(urls).length == Object.keys(services).length)
