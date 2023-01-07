@@ -110,7 +110,12 @@ async function post(plate) {
     let urls = {}
 
     for (let [_, service] of Object.entries(services)) {
-        urls[service.name] = await service.post(plate)
+        try {
+            urls[service.name] = await service.post(plate)
+        } catch (e) {
+            urls[service.name] = ` Service had an error. Error: \`\`\`${e.toString()}\`\`\` `
+        }
+
         await moderation.updateNotification(notification, plate, urls, Object.keys(urls).length == Object.keys(services).length)
     }
 
@@ -190,7 +195,11 @@ async function updateBio() {
     let percentage = (((totalSourceRecords - records.length) / totalSourceRecords) * 100).toFixed(2)
 
     for (let [_, service] of Object.entries(services)) {
-        await service.updateBio(util.format(formats.bio, percentage))
+        try {
+            await service.updateBio(util.format(formats.bio, percentage))
+        } catch (e) {
+            console.log(`Service "${service.name}" had an error while updating the account bio. Error: ${e.toString}`)
+        }
     }
 }
 
