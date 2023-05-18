@@ -2,7 +2,7 @@
     "apps": [{
         "name": "ca-dmv-bot",
         "script": "./app.js",
-        "watch": true,
+        "watch": false,
         "exec_interpreter": "babel-node",
         "exec_mode": "fork"
     }]
