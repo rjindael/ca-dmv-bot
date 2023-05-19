@@ -1,6 +1,10 @@
 # ca-dmv-bot
 
-![License](https://img.shields.io/github/license/rjindael/ca-dmv-bot) ![Star](https://img.shields.io/github/stars/rjindael/ca-dmv-bot?style=social) ![Twitter](https://img.shields.io/twitter/follow/ca_dmv_bot2?style=social) ![Mastodon](https://img.shields.io/mastodon/follow/109343781423154931?domain=https%3A%2F%2Fbotsin.space&style=social)
+[![License](https://img.shields.io/github/license/rjindael/ca-dmv-bot)](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE)
+[![Star](https://img.shields.io/github/stars/rjindael/ca-dmv-bot?style=social)](https://github.com/rjindael/ca-dmv-bot/stargazers)
+[![Twitter](https://img.shields.io/twitter/follow/ca_dmv_bot2?style=social)](https://twitter.com/ca_dmv_bot2)
+[![Mastodon](https://img.shields.io/mastodon/follow/109343781423154931?domain=https%3A%2F%2Fbotsin.space&style=social)](https://botsin.space/@ca_dmv_bot)
+[![Tumblr](https://img.shields.io/twitter/follow/ca-dmv-bot?logo=tumblr&style=social)](https://www.tumblr.com/ca-dmv-bot)
 
 Social media bot that randomly posts [23,463 personalized license plate applications the California DMV received from 2015-2016](https://github.com/veltman/ca-license-plates).
 
