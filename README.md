@@ -36,6 +36,6 @@ The data ca-dmv-bot uses is sourced from [@veltman/ca-license-plates](https://gi
 
 ## License
 
-ca-dmv-bot is licensed under the MIT license. A copy of it [has been included](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE) with ca-dmv.
+ca-dmv-bot is licensed under the MIT license. A copy of it [has been included](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE) with ca-dmv-bot.
 
 ca-dmv-bot uses the [Cascadia Code](https://github.com/microsoft/cascadia-code) font, a project licensed under the SIL Open Font License (OFL).
