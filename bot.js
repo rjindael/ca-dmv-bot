@@ -1,6 +1,6 @@
 import crypto from "node:crypto"
 import csv from "csv-parser"
-import fs from "node:fs"
+import fs from "fs-extra"
 import gm from "gm"
 import path from "node:path"
 import strToStream from "string-to-stream"
@@ -18,7 +18,7 @@ const repositoryURL = "https://github.com/rjindael/ca-dmv-bot"
 const symbols = { "#": "hand", "$": "heart", "+": "plus", "&": "star", "/": "" }
 const formats = {
     altText: "California license plate with text \"%s\".",
-    bio: "Real personalized license plate applications that the California DMV received from 2015-2016. Posts hourly. Not the actual DMV. (%d% complete)",
+    bio: "Real personalized license plate applications that the California DMV received from 2015-2017. Posts hourly. Not the actual DMV. (%d% complete)",
     post: "Customer: %s\nDMV: %s\n\nVerdict: %s"
 }
 
@@ -35,15 +35,19 @@ async function initialize(credentials) {
     }
 
     let sourceRecords = []
-    await new Promise((resolve) => {
-        strToStream(fs.readFileSync("./resources/veltman/applications.csv")).pipe(csv()).on("data", record => sourceRecords.push(record)).on("end", resolve)
-    })
+    for (let file of fs.readdirSync("./resources/workbooks")) {
+        if (file.split(".").pop() == "csv") {
+            await new Promise((resolve) => {
+                strToStream(fs.readFileSync(`./resources/workbooks/${file}`)).pipe(csv()).on("data", record => sourceRecords.push(record)).on("end", resolve)
+            })
+        }
+    }
 
     totalSourceRecords = sourceRecords.length
 
-    if (!fs.existsSync("./data")) {
-        fs.mkdirSync("./data")
-        fs.mkdirSync("./data/tmp")
+    if (!fs.existsSync("./data") || !fs.existsSync("./data/records.json")) {
+        fs.ensureDirSync("./data")
+        fs.ensureDirSync("./data/tmp")
         fs.writeFileSync("./data/queue.json", "[]")
         fs.writeFileSync("./data/posted.json", "[]")
 
@@ -55,6 +59,11 @@ async function initialize(credentials) {
         let parsedSourceRecords = []
 
         for (let i = 0; i < sourceRecords.length; i++) {
+            // hack
+            if (sourceRecords[i].plate === undefined) {
+                sourceRecords[i].plate = Object.values(sourceRecords[i])[0]
+            }
+
             if (!sourceRecords[i].plate.length || (sourceRecords[i].status != "N" && sourceRecords[i].status != "Y")) {
                 continue
             }

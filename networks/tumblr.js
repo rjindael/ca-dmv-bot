@@ -1,4 +1,4 @@
-import fs from "node:fs"
+import fs from "fs-extra"
 import tumblr from "tumblr.js"
 import util from "node:util"
 

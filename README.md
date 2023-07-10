@@ -6,7 +6,7 @@
 [![Mastodon](https://img.shields.io/mastodon/follow/109343781423154931?domain=https%3A%2F%2Fbotsin.space&style=social)](https://botsin.space/@ca_dmv_bot)
 [![Tumblr](https://img.shields.io/twitter/follow/ca-dmv-bot?logo=tumblr&style=social)](https://www.tumblr.com/ca-dmv-bot)
 
-Social media bot that randomly posts [23,463 personalized license plate applications the California DMV received from 2015-2016](https://github.com/veltman/ca-license-plates).
+Social media bot that randomly posts [35,509 personalized license plate applications the California DMV received from 2015-2017](https://github.com/21five/ca-license-plates).
 
 Watch it live on the following platforms:
 - Twitter: [@ca_dmv_bot2](https://twitter.com/ca_dmv_bot2)
@@ -15,11 +15,11 @@ Watch it live on the following platforms:
 
 ## Data
 
-The data ca-dmv-bot uses is sourced from [@veltman/ca-license-plates](https://github.com/veltman/ca-license-plates), which states;
+The data ca-dmv-bot uses is sourced from [@21five/ca-license-plates](https://github.com/21five/ca-license-plates), which states;
 
-- 23,463 personalized license plate applications that the [California DMV](https://dmv.ca.gov) received from 2015 through 2016
+- 35,509 personalized license plate applications that the [California DMV](https://dmv.ca.gov) received from 2015 through 2017
 - These aren't **all** applications reviewed by the DMV during that timeframe; only applications that were flagged for additional review by the Review Committee
-- Compiled from 458 Excel workbooks that the DMV prepared for a public records request
+- Compiled from 623 Excel workbooks that the DMV prepared for a public records request
 
 ## Notes
 
@@ -30,12 +30,12 @@ The data ca-dmv-bot uses is sourced from [@veltman/ca-license-plates](https://gi
 
 ## Thanks
 
-- Noah Veltman ([@veltman](https://github.com/veltman)) - Compiling the data that ca-dmv-bot uses
+- Noah Veltman ([@veltman](https://github.com/veltman)), 21five ([@21five_public](https://twitter.com/21five_public)) - Compiling the data that ca-dmv-bot uses
 - Dylan ([@brickdylanfake](https://twitter.com/brickdylanfake)) - Creating a custom font for the bot to use as well as making the profile picture and banner
 - kay ([@zyrnwtf](https://twitter.com/zyrnwtf)), gary ([@bararectangle](https://twitter.com/bararectangle)), jerd ([@jerdftw](https://twitter.com/jerdftw)), neb ([@briwaffles](https://twitter.com/briwaffles)), zetex ([@zetexkindasucks](https://twitter.com/zetexkindasucks)) - Moderation
 
 ## License
 
-ca-dmv-bot is licensed under the MIT license. A copy of it [has been included](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE) with ca-dmv-bot.
+ca-dmv-bot is licensed under the [MIT license](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE). A copy of it has been included with ca-dmv-bot.
 
 ca-dmv-bot uses the [Cascadia Code](https://github.com/microsoft/cascadia-code) font, a project licensed under the SIL Open Font License (OFL).

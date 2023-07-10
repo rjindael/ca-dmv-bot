@@ -1,4 +1,4 @@
-import fs from "node:fs"
+import fs from "fs-extra"
 import { login } from "masto"
 import util from "node:util"
 

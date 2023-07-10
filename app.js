@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-import fs from "node:fs"
+import fs from "fs-extra"
 import schedule from "node-schedule"
 
 import bot from "./bot.js"
