@@ -34,7 +34,7 @@ The data ca-dmv-bot uses is sourced from [@21five/ca-license-plates](https://git
 - Dylan ([@brickdylanfake](https://twitter.com/brickdylanfake)) - Creating a custom font for the bot to use as well as making the profile picture and banner
 - kay ([@zyrnwtf](https://twitter.com/zyrnwtf)), gary ([@bararectangle](https://twitter.com/bararectangle)), jerd ([@jerdftw](https://twitter.com/jerdftw)), neb ([@briwaffles](https://twitter.com/briwaffles)), zetex ([@zetexkindasucks](https://twitter.com/zetexkindasucks)) - Assisting with moderation
 
-## License
+# License
 
 ca-dmv-bot is licensed under the [MIT license](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE). A copy of it has been included with ca-dmv-bot.
 
