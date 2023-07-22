@@ -27,6 +27,6 @@
     "node-schedule": "^2.1.0",
     "string-to-stream": "^3.0.1",
     "tumblr.js": "^3.0.0",
-    "twitter-api-v2": "^1.13.0"
+    "twitter-api-v2": "^1.15.1"
   }
 }
