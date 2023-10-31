@@ -23,7 +23,7 @@
     "dotenv": "^16.0.3",
     "fs-extra": "^11.1.1",
     "gm": "^1.25.0",
-    "masto": "^5.0.1",
+    "masto": "^6.4.0",
     "node-schedule": "^2.1.0",
     "string-to-stream": "^3.0.1",
     "tumblr.js": "^3.0.0",
