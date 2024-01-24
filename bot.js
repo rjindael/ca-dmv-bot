@@ -18,7 +18,7 @@ const repositoryURL = "https://github.com/rjindael/ca-dmv-bot"
 const symbols = { "#": "hand", "$": "heart", "+": "plus", "&": "star", "/": "" }
 const formats = {
     altText: "California license plate with text \"%s\".",
-    bio: "Real personalized license plate applications that the California DMV received from 2015-2017. Posts hourly. Not the actual DMV. (%d% complete)",
+    bio: "Real personalized license plate applications that the California DMV received from 2015-2017. Posts hourly. Not the CA DMV. (%d% complete)",
     post: "Customer: %s\nDMV: %s\n\nVerdict: %s"
 }
 
