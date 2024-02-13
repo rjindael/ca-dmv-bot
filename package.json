@@ -20,7 +20,7 @@
   "dependencies": {
     "csv-parser": "^3.0.0",
     "discord.js": "^14.14.1",
-    "dotenv": "^16.4.1",
+    "dotenv": "^16.4.4",
     "fs-extra": "^11.1.1",
     "gm": "^1.25.0",
     "masto": "^5.0.1",
