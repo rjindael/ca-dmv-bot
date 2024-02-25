@@ -9,6 +9,7 @@
 Social media bot that randomly posts [35,509 personalized license plate applications the California DMV received from 2015-2017](https://github.com/21five/ca-license-plates).
 
 Watch it live on the following platforms:
+
 - Twitter: [@ca_dmv_bot2](https://twitter.com/ca_dmv_bot2)
 - Mastodon: [@ca_dmv_bot@botsin.space](https://botsin.space/@ca_dmv_bot)
 - Tumblr: [@ca-dmv-bot](https://www.tumblr.com/ca-dmv-bot)
@@ -32,9 +33,8 @@ The data ca-dmv-bot uses is sourced from [@21five/ca-license-plates](https://git
 
 - Noah Veltman ([@veltman](https://github.com/veltman)), 21five ([@21five_public](https://twitter.com/21five_public)) - Compiling the data that ca-dmv-bot uses
 - Dylan ([@brickdylanfake](https://twitter.com/brickdylanfake)) - Creating a custom font for the bot to use as well as making the profile picture and banner
-- kay ([@zyrnwtf](https://twitter.com/zyrnwtf)), gary ([@bararectangle](https://twitter.com/bararectangle)), jerd ([@jerdftw](https://twitter.com/jerdftw)), neb ([@briwaffles](https://twitter.com/briwaffles)), zetex ([@zetexkindasucks](https://twitter.com/zetexkindasucks)) - Assisting with moderation
 
-# License
+## License
 
 ca-dmv-bot is licensed under the [MIT license](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE). A copy of it has been included with ca-dmv-bot.
 

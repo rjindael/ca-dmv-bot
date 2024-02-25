@@ -32,8 +32,8 @@ async function post(plate) {
     let snowflakeStr
 
     if (text.length <= 280) {
-        let tweet = await client.v1.tweet(text, { media_ids: [ mediaId ] })
-        snowflakeStr = tweet.id_str
+        let tweet = await client.v2.tweet({ text: text, media: { media_ids: [ mediaId ] } })
+        snowflakeStr = tweet.id
     } else {
         /**
          * Trim the post, then add a reply to the original tweet with the customer comment.
@@ -56,19 +56,20 @@ async function post(plate) {
 
         text = util.format(bot.formats.template, trimmedCustomerComment + "...", plate.dmvComment, plate.status ? "ACCEPTED" : "DENIED")
         
-        let tweet = await client.v1.tweet(text, { media_ids: [ mediaId ] })
-        snowflakeStr = tweet.id_str
+        let tweet = await client.v2.tweet({ text: text, media: { media_ids: [ mediaId ] } })
+        snowflakeStr = tweet.id
 
         let replyText = `(This Tweet was trimmed from its original.)\n\nCustomer: ${plate.customerComment}`
         
-        await client.v1.reply(replyText, tweet.id)
+        await client.v2.reply(replyText, tweet.id)
     }
 
     return `https://twitter.com/${handle}/status/${snowflakeStr}`
 }
 
 async function updateBio(text) {
-    await client.v1.updateAccountProfile({ description: text })
+    // Method deprecated & non-functional as of Elon Musk
+    // await client.v1.updateAccountProfile({ description: text })
 }
 
 export default { name, authenticate, post, updateBio }

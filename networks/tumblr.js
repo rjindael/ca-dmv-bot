@@ -4,8 +4,8 @@ import util from "node:util"
 
 import bot from "../bot.js"
 
-const globalTags = [ "bot", "ca-dmv-bot", "california", "dmv", "funny", "government", "lol", "public records" ]
 const name = "Tumblr"
+const tags = [ "bot", "ca-dmv-bot", "california", "dmv", "funny", "government", "lol", "public records" ]
 
 var client
 var handle
@@ -32,21 +32,20 @@ function authenticate(credentials) {
     })
 }
 
-function post(plate) {
+async function post(plate) {
     let text = util.format(bot.formats.post, plate.customerComment, plate.dmvComment, plate.verdict ? "ACCEPTED" : "DENIED").replaceAll("\n", "<br>")
-    let altText = bot.formatAltText(plate.text).replaceAll("\"", "").replaceAll(".", "")
-    let tagString = [ altText, ... globalTags].join(",")
-
-    return new Promise((resolve) => {
-        client.createPhotoPost(blogName, {
+    
+    let response = await client.createPost(blogName, {
+        content: {
+            type: "image",
+            tag: tags,
             caption: text,
-            data64: fs.readFileSync(plate.fileName, { encoding: "base64" }),
-            tags: tagString,
-            link: bot.repositoryURL
-        }, (_, data) => {
-            resolve(`https://www.tumblr.com/${handle}/${data.id_string}`)
-        })
+            media: fs.createReadStream(plate.fileName),
+            altText: bot.formatAltText(plate.text)
+        }
     })
+
+    return response.post_url
 }
 
 function updateBio() {

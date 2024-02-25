@@ -1,5 +1,5 @@
 import fs from "fs-extra"
-import { login } from "masto"
+import { createRestAPIClient } from "masto"
 import util from "node:util"
 
 import bot from "../bot.js"
@@ -9,7 +9,7 @@ const name = "Mastodon"
 var client
 
 async function authenticate(credentials) {
-    client = await login(credentials)
+    client = createRestAPIClient(credentials)
 
     let user = await client.v1.accounts.verifyCredentials()
     console.log(`Logged into Mastodon as "${user.displayName}" (@${user.acct} : ${user.id})`)
