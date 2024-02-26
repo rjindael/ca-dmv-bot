@@ -4,6 +4,7 @@
 [![Twitter](https://img.shields.io/twitter/follow/ca_dmv_bot2?style=social)](https://twitter.com/ca_dmv_bot2)
 [![Mastodon](https://img.shields.io/mastodon/follow/109343781423154931?domain=https%3A%2F%2Fbotsin.space&style=social)](https://botsin.space/@ca_dmv_bot)
 [![Tumblr](https://img.shields.io/twitter/follow/ca-dmv-bot?logo=tumblr&style=social)](https://www.tumblr.com/ca-dmv-bot)
+[![Bluesky](https://img.shields.io/twitter/follow/ca-dmv-bot.bsky.social?logo=bluesky&style=social)](https://bsky.app/profile/ca-dmv-bot.bsky.social)
 [![Star](https://img.shields.io/github/stars/rjindael/ca-dmv-bot?style=social)](https://github.com/rjindael/ca-dmv-bot/stargazers)
 
 Social media bot that randomly posts [35,509 personalized license plate applications the California DMV received from 2015-2017](https://github.com/21five/ca-license-plates).
@@ -13,6 +14,7 @@ Watch it live on the following platforms:
 - Twitter: [@ca_dmv_bot2](https://twitter.com/ca_dmv_bot2)
 - Mastodon: [@ca_dmv_bot@botsin.space](https://botsin.space/@ca_dmv_bot)
 - Tumblr: [@ca-dmv-bot](https://www.tumblr.com/ca-dmv-bot)
+- Bluesky: [@ca-dmv-bot.bsky.social](https://bsky.app/profile/ca-dmv-bot.bsky.social)
 
 ## Data
 

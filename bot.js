@@ -10,10 +10,16 @@ import moderation from "./moderation.js"
 import twitter from "./networks/twitter.js"
 import mastodon from "./networks/mastodon.js"
 import tumblr from "./networks/tumblr.js"
+import bluesky from "./networks/bluesky.js"
 
 const __dirname = path.resolve()
+const services = {
+    "twitter": twitter,
+    "mastodon": mastodon,
+    "tumblr": tumblr,
+    "bluesky": bluesky
+}
 
-const services = { "twitter": twitter, "mastodon": mastodon, "tumblr": tumblr }
 const repositoryURL = "https://github.com/rjindael/ca-dmv-bot"
 const symbols = { "#": "hand", "$": "heart", "+": "plus", "&": "star", "/": "" }
 const formats = {
@@ -29,6 +35,7 @@ async function initialize(credentials) {
     await services.twitter.authenticate(credentials.twitter)
     await services.mastodon.authenticate(credentials.mastodon)
     await services.tumblr.authenticate(credentials.tumblr)
+    await services.bluesky.authenticate(credentials.bluesky)
 
     if (!fs.existsSync("./resources")) {
         throw "Bad install"

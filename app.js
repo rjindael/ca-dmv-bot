@@ -1,4 +1,3 @@
-import dotenv from "dotenv"
 import fs from "fs-extra"
 import schedule from "node-schedule"
 
@@ -20,8 +19,6 @@ async function run() {
 }
 
 async function initialize() {
-    dotenv.config()
-
     await moderation.initialize({
         token: process.env.DISCORD_TOKEN,
         channelId: process.env.DISCORD_CHANNEL_ID,
@@ -46,6 +43,12 @@ async function initialize() {
             consumerSecret: process.env.TUMBLR_CONSUMER_SECRET,
             accessToken: process.env.TUMBLR_TOKEN,
             accessTokenSecret: process.env.TUMBLR_TOKEN_SECRET
+        },
+
+        bluesky: {
+            service: process.env.BLUESKY_SERVICE,
+            identifier: process.env.BLUESKY_IDENTIFIER,
+            password: process.env.BLUESKY_PASSWORD
         }
     })
 
