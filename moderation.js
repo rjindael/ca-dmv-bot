@@ -12,6 +12,7 @@ import {
     SlashCommandBuilder
 } from "discord.js"
 
+import fs from "fs-extra"
 import util from "node:util"
 
 import app from "./app.js"
@@ -40,8 +41,38 @@ function initialize(credentials) {
             if (!interaction.isChatInputCommand() || !interactionFilter(interaction)) {
                 return
             }
+            
+            let queue = app.getQueue()
 
             switch (interaction.commandName) {
+                case "ping":
+                    await interaction.deferReply({ ephemeral: true })
+                    await interaction.editReply("Pong!")
+                    break
+                case "post":
+                    await interaction.deferReply({ ephemeral: true })
+                    await interaction.editReply("Posting plate...")
+
+                    if (queue.length == 0) {
+                        await interaction.editReply("There is no plate to post - please review some plates first.")
+                        return
+                    }
+
+                    await bot.post(queue.pop())
+                    fs.writeFileSync("./data/queue.json", JSON.stringify(queue))
+
+                    updateStatus(queue.length)
+                    await notifyQueueAmount(queue.length)
+
+                    await interaction.editReply("Posted plate!")
+
+                    break
+                case "bio":
+                    await interaction.deferReply({ ephemeral: true })
+                    await bot.updateBio()
+                    await interaction.editReply("Refreshed bio!")
+
+                    break
                 case "review":
                     let plates = await startReviewProcessForUser(interaction)
                     app.addPlatesToQueue(plates)
@@ -51,13 +82,9 @@ function initialize(credentials) {
                 case "queue":
                     await interaction.deferReply({ ephemeral: true })
 
-                    let queue = app.getQueue()
                     queue = queue.map(plate => `\`${plate.text}\``)
 
-                    await interaction.editReply({
-                        content: `There are **${queue.length}** plate(s) left to be posted, and they are (from first to last): ${queue.reverse().join(", ")}.`,
-                        ephemeral: true
-                    })
+                    await interaction.editReply(queue.length == 0 ? "There are no plates in the queue." : `There are **${queue.length}** plate(s) left to be posted, and they are (from first to last): ${queue.reverse().join(", ")}.`)
 
                     break
             }
@@ -68,6 +95,9 @@ function initialize(credentials) {
 async function deployCommands(token) {
     let rest = new REST({ version: "10" }).setToken(token)
     let commands = [
+        new SlashCommandBuilder().setName("ping").setDescription("Replies with pong!").toJSON(),
+        new SlashCommandBuilder().setName("post").setDescription("Manually posts the next plate in queue").toJSON(),
+        new SlashCommandBuilder().setName("bio").setDescription("Updates the bot's bio").toJSON(),
         new SlashCommandBuilder().setName("review").setDescription("Review some plates").toJSON(),
         new SlashCommandBuilder().setName("queue").setDescription("Returns the plates in the queue").toJSON()
     ]
