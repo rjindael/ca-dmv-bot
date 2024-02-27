@@ -33,7 +33,7 @@ async function post(plate) {
 
     if (text.length <= 280) {
         let tweet = await client.v2.tweet({ text: text, media: { media_ids: [ mediaId ] } })
-        snowflakeStr = tweet.id
+        snowflakeStr = tweet.data.id
     } else {
         /**
          * Trim the post, then add a reply to the original tweet with the customer comment.
@@ -61,7 +61,7 @@ async function post(plate) {
 
         let replyText = `(This Tweet was trimmed from its original.)\n\nCustomer: ${plate.customerComment}`
         
-        await client.v2.reply(replyText, tweet.id)
+        await client.v2.reply(replyText, tweet.data.id)
     }
 
     return `https://twitter.com/${handle}/status/${snowflakeStr}`
