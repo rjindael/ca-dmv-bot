@@ -74,9 +74,7 @@ function initialize(credentials) {
 
                     break
                 case "review":
-                    let plates = await startReviewProcessForUser(interaction)
-                    app.addPlatesToQueue(plates)
-                    updateStatus(app.getQueue().length)
+                    await startReviewProcessForUser(interaction)
 
                     break
                 case "queue":
@@ -211,8 +209,9 @@ async function startReviewProcessForUser(interaction) {
                 switch (response.customId) {
                     case "approve":
                         console.log(`"${tag}" approved plate "${plate.text}".`)
+                        app.addPlatesToQueue([plate])
                         approvedPlates.push(plate)
-                        updateStatus(app.getQueue().length + approvedPlates.length)
+                        updateStatus(app.getQueue().length)
                         await interaction.editReply(`**Approved \`${plate.text}\`.** Fetching next plate...`)
 
                         break
@@ -273,7 +272,7 @@ async function notifyQueueAmount(queueAmount) {
     await channel.send(`There are **${queueAmount}** plate(s) left in the queue.`)
 
     if (queueAmount == 0) {
-        app.addPlatesToQueue(await process())
+        await process()
     }
 }
 
