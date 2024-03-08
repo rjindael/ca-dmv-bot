@@ -1,6 +1,6 @@
 # ca-dmv-bot
 
-[![License](https://img.shields.io/github/license/rjindael/ca-dmv-bot)](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE)
+[![License](https://img.shields.io/github/license/rjindael/ca-dmv-bot)](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE.md)
 [![Twitter](https://img.shields.io/twitter/follow/ca_dmv_bot2?style=social)](https://twitter.com/ca_dmv_bot2)
 [![Mastodon](https://img.shields.io/mastodon/follow/109343781423154931?domain=https%3A%2F%2Fbotsin.space&style=social)](https://botsin.space/@ca_dmv_bot)
 [![Tumblr](https://img.shields.io/twitter/follow/ca-dmv-bot?logo=tumblr&style=social)](https://www.tumblr.com/ca-dmv-bot)
@@ -38,6 +38,6 @@ The data ca-dmv-bot uses is sourced from [@21five/ca-license-plates](https://git
 
 ## License
 
-ca-dmv-bot is licensed under the [MIT license](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE). A copy of it has been included with ca-dmv-bot.
+ca-dmv-bot is licensed under the [MIT license](https://github.com/rjindael/ca-dmv-bot/blob/trunk/LICENSE.md). A copy of it has been included with ca-dmv-bot.
 
 ca-dmv-bot uses the [Cascadia Code](https://github.com/microsoft/cascadia-code) font, a project licensed under the SIL Open Font License (OFL).
