@@ -4,6 +4,7 @@ import util from "node:util"
 import bot from "../bot.js"
 
 const name = "Twitter"
+const maxLength = 20000 // set to 280 if non-premium
 
 var client
 var handle
@@ -31,7 +32,7 @@ async function post(plate) {
     let text = util.format(bot.formats.post, plate.customerComment, plate.dmvComment, plate.verdict ? "ACCEPTED" : "DENIED")
     let snowflakeStr
 
-    if (text.length <= 280) {
+    if (text.length <= maxLength) {
         let tweet = await client.v2.tweet({ text: text, media: { media_ids: [ mediaId ] } })
         snowflakeStr = tweet.data.id
     } else {
@@ -45,7 +46,7 @@ async function post(plate) {
          * won't have to come back to this later...
          */
 
-        let removeCharacters = (text.length - 280) + 3 // "..."
+        let removeCharacters = (text.length - maxLength) + 3 // "..."
 
         if (plate.customerComment.length - removeCharacters < 0) {
             console.error(`DMV reviewer comments exceeded the maximum Tweet length! Plate: "${plate.text}"`)
