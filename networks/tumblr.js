@@ -35,7 +35,7 @@ function authenticate(credentials) {
 async function post(plate) {
     let text = util.format(bot.formats.post, plate.customerComment, plate.dmvComment, plate.verdict ? "ACCEPTED" : "DENIED").replaceAll("\n", "<br>")
     let altText = bot.formatAltText(plate.text).replaceAll("\"", "").replaceAll(".", "")
-    let tagString = [ altText, ... globalTags].join(",")
+    let tagString = [ altText, plate.verdict ? "ACCEPTED" : "DENIED", ... globalTags].join(",")
 
     return new Promise((resolve) => {
         client.createLegacyPost(blogName, {
