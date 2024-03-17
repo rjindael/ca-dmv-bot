@@ -35,6 +35,7 @@ The data ca-dmv-bot uses is sourced from [@21five/ca-license-plates](https://git
 
 - Noah Veltman ([@veltman](https://github.com/veltman)), 21five ([@21five_public](https://twitter.com/21five_public)) - Compiling the data that ca-dmv-bot uses
 - Dylan ([@brickdylanfake](https://twitter.com/brickdylanfake)) - Creating a custom font for the bot to use as well as making the profile picture and banner
+- My friends - Helping me moderate the bot :D
 
 ## License
 

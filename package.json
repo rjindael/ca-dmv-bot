@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/rjindael/ca-dmv-bot#readme",
   "dependencies": {
-    "@atproto/api": "^0.10.5",
+    "@atproto/api": "^0.11.1",
     "csv-parser": "^3.0.0",
     "discord.js": "^14.14.1",
     "fs-extra": "^11.2.0",
@@ -27,6 +27,6 @@
     "node-schedule": "^2.1.1",
     "string-to-stream": "^3.0.1",
     "tumblr.js": "^5.0.0",
-    "twitter-api-v2": "^1.16.0"
+    "twitter-api-v2": "^1.16.1"
   }
 }
