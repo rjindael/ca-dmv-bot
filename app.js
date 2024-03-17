@@ -22,7 +22,8 @@ async function initialize() {
     await moderation.initialize({
         token: process.env.DISCORD_TOKEN,
         channelId: process.env.DISCORD_CHANNEL_ID,
-        moderatorRoleId: process.env.DISCORD_MODERATOR_ROLE_ID
+        moderatorRoleId: process.env.DISCORD_MODERATOR_ROLE_ID,
+        ownerUserId: process.env.DISCORD_OWNER_USER_ID
     })
 
     await bot.initialize({

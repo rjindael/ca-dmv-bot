@@ -1,6 +1,5 @@
 import {
     ActionRowBuilder,
-    ActivityType,
     AttachmentBuilder,
     ButtonBuilder,
     ButtonStyle,
@@ -21,9 +20,11 @@ import bot from "./bot.js"
 var client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages] })
 var channel
 var moderatorRoleId
+var ownerUserId
 
 function initialize(credentials) {
     moderatorRoleId = credentials.moderatorRoleId
+    ownerUserId = credentials.ownerUserId
 
     return new Promise((resolve) => {
         client.login(credentials.token)
@@ -49,7 +50,25 @@ function initialize(credentials) {
                     await interaction.deferReply({ ephemeral: true })
                     await interaction.editReply("Pong!")
                     break
+                case "bio":
+                    if (interaction.user.id != ownerUserId) {
+                        await interaction.deferReply({ ephemeral: true })
+                        await interaction.editReply("You are not authorized to use this command.")
+                        return
+                    }
+
+                    await interaction.deferReply({ ephemeral: true })
+                    await bot.updateBio()
+                    await interaction.editReply("Refreshed bio!")
+
+                    break
                 case "post":
+                    if (interaction.user.id != ownerUserId) {
+                        await interaction.deferReply({ ephemeral: true })
+                        await interaction.editReply("You are not authorized to use this command.")
+                        return
+                    }
+
                     await interaction.deferReply({ ephemeral: true })
                     await interaction.editReply("Posting plate...")
 
@@ -65,12 +84,6 @@ function initialize(credentials) {
                     await notifyQueueAmount(queue.length)
 
                     await interaction.editReply("Posted plate!")
-
-                    break
-                case "bio":
-                    await interaction.deferReply({ ephemeral: true })
-                    await bot.updateBio()
-                    await interaction.editReply("Refreshed bio!")
 
                     break
                 case "review":
