@@ -1,5 +1,6 @@
 import fs from "fs-extra"
 import schedule from "node-schedule"
+import dotenv from "dotenv"
 
 import bot from "./bot.js"
 import moderation from "./moderation.js"
@@ -19,6 +20,8 @@ async function run() {
 }
 
 async function initialize() {
+    dotenv.config()
+
     await moderation.initialize({
         token: process.env.DISCORD_TOKEN,
         channelId: process.env.DISCORD_CHANNEL_ID,
