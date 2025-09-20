@@ -14,8 +14,8 @@ import bluesky from "./networks/bluesky.js"
 
 const __dirname = path.resolve()
 const services = {
-    "twitter": twitter,
-    "mastodon": mastodon,
+//  "twitter": twitter,
+//  "mastodon": mastodon,
     "tumblr": tumblr,
     "bluesky": bluesky
 }
@@ -32,8 +32,8 @@ var records = []
 var totalSourceRecords = 0
 
 async function initialize(credentials) {
-    await services.twitter.authenticate(credentials.twitter)
-    await services.mastodon.authenticate(credentials.mastodon)
+//  await services.twitter.authenticate(credentials.twitter)
+//  await services.mastodon.authenticate(credentials.mastodon)
     await services.tumblr.authenticate(credentials.tumblr)
     await services.bluesky.authenticate(credentials.bluesky)
 

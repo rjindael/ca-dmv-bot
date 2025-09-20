@@ -30,17 +30,17 @@ async function initialize() {
     })
 
     await bot.initialize({
-        twitter: {
-            appKey: process.env.TWITTER_CONSUMER_KEY,
-            appSecret: process.env.TWITTER_CONSUMER_SECRET,
-            accessToken: process.env.TWITTER_ACCESS_TOKEN,
-            accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-        },
+//      twitter: {
+//          appKey: process.env.TWITTER_CONSUMER_KEY,
+//          appSecret: process.env.TWITTER_CONSUMER_SECRET,
+//          accessToken: process.env.TWITTER_ACCESS_TOKEN,
+//          accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+//      },
 
-        mastodon: {
-            url: process.env.MASTODON_URL,
-            accessToken: process.env.MASTODON_ACCESS_TOKEN
-        },
+//      mastodon: {
+//          url: process.env.MASTODON_URL,
+//          accessToken: process.env.MASTODON_ACCESS_TOKEN
+//      },
 
         tumblr: {
             consumerKey: process.env.TUMBLR_CONSUMER_KEY,
