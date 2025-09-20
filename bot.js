@@ -163,7 +163,7 @@ function removePlateFromRecords(plate) {
 }
 
 function removePlate(plate) {
-    fs.unlinkSync(plate.fileName)
+    // fs.unlinkSync(plate.fileName)
 
     let posted = JSON.parse(fs.readFileSync("./data/posted.json"))
     posted.push(plate)
